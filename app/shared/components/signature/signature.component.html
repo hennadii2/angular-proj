@@ -1,0 +1,35 @@
+<div id="signature">
+    <div class="mb-2 w-100">
+
+        <button type="button" class="btn btn-primary icon-btn" [ngStyle]="{'border-radius.px': button_corner}" (click)="clear()">
+            Clear
+        </button>
+
+        <!-- <button type="button" class="btn btn-primary icon-btn ml-2" [ngStyle]="{'border-radius.px': button_corner}" (click)="undo()">
+            Undo
+        </button>
+        
+        <button
+            type="button" 
+            class="btn btn-primary icon-btn ml-2"
+            type="text"
+            [value]="color"
+            [style.color]="!color"
+            [style.background]="color"
+            [cpPosition]="'bottom'"
+            [cpPositionOffset]="'50%'"
+            [cpPositionRelativeToArrow]="true"
+            [ngStyle]="{'border-radius.px': button_corner}"
+            readonly
+            (colorPickerChange)="changeColor($event)"
+            [(colorPicker)]="color">Color</button> -->
+
+    </div>
+    <div class="w-100" #sign_container (resized)="onResize()">
+        <signature-pad
+            [(options)]="signaturePadOptions" 
+            (onBeginEvent)="drawSignStart()" 
+            (onEndEvent)="drawSignComplete()">
+        </signature-pad>
+    </div>                
+</div>

@@ -1,0 +1,136 @@
+{
+    "EON"                   : "EON",
+    "ERP_ON_LINE"           : "ERP Online",
+    "LOGIN"                 : {
+        "GO"                : "LOS",
+        "LOGIN"             : "EINLOGGEN",
+        "FORGOT"            : "Vergessen",
+        "EMAIL"             : "Email",
+        "PASSWORD"          : "Passwort",
+        "GET_STARTED"       : "Erste Schritte",
+        "REMEMBER_EMAIL"    : "E-Mail merken",
+        "REMEMBER_LOGIN"    : "EinLoggen merken",
+        "TEXT_STORE"        : "Melden Sie sich in Ihrem Geschäft an",
+        "USER"              : "Benutzer"
+    },
+
+    "MENU"                  : {
+        "CUSTOMERS"         : "Kunden",
+        "INVOICES"          : "Rechnungen",
+        "SUPPLIERS"         : "Lieferanten",
+        "QUOTATIONS"        : "Zitate",
+        "ORDER_RECEIPTS"    : "Auftragsbestätigungen",
+        "DELIVERY_NOTES"    : "Lieferscheine",
+        "ARTICLES"          : "Artikel",
+        "REPORTS"           : "Berichte",
+        "MAKE_FREE_USER"    : "Free User erstellen"
+    },
+
+    "LANGUAGE"              : "Sprache",  
+    "LANGUAGES"             : {
+        "ENGLISH"           : "Englisch",
+        "GERMAN"            : "Deutsch",
+        "DUTCH"             : "Dutch",
+        "FRENCH"            : "Französisch"
+    },
+
+    "NEW"                   : "Neu",
+    "CREATE"                : "Erstellen",
+    "EDIT"                  : "Bearbeiten",
+    "UPDATE"                : "Update",
+    "LIST"                  : "Liste",
+    "INSERT"                : "Insert",   
+    "DELETE"                : "Löschen",
+    "PREVIOUS"              : "Zurück",
+    "NEXT"                  : "Next",
+    "SEARCH"                : "Suche",
+    "SEARCH_KEY"            : "Suchschlüssel",
+    "VIEW"                  : "Aussicht",
+    "FILTER"                : "Filter",
+    "YES"                   : "Ja",
+    "NO"                    : "Nein",
+    "SAVE"                  : "Save",
+    "CANCEL"                : "Abbrechen",
+    "PRINT"                 : "Drucken",
+    "SELECT"                : "Selecteer",
+    "COMPANY"               : "Unternehmen",
+    "REPORT"                : "Bericht",
+    "DEBIT"                 : "Debit",
+    "CREDIT"                : "Kredit",
+
+    "TABLE_LOADING"         : "Bitte warten Sie, während Ihre Zeilen geladen werden",
+    "TABLE_NO_ROWS"         : "Es gibt keine Zeilen",
+
+    "FILTERTEXT"            : "Geben Sie den zu filternden Text ein...",
+    "FILTERTOOLTIP"         : "Drücken Sie die Eingabetaste oder klicken Sie auf die Suchschaltfläche, um das Ergebnis anzuzeigen.",
+
+    "SEARCHTEXT"            : "Geben Sie hier Ihre Suchanfrage ein...",
+
+    "SCANTEXT"              : "Scannen Sie Ihr Dokument",
+
+    "MODAL"                 : {
+        "CONFIRM"           : "Bestätigen",
+        "CONFIRM_MESSAGE"   : "Sind Sie sicher?",
+        "CHANGES_NOT_SAVED" : "Die Änderungen werden nicht gespeichert."
+    },
+
+    "CUSTOMER"              : {
+        "CUSTOMER"          : "Kunde",
+        "CUSTOMERS"         : "Kunden",
+        "NAME"              : "Name",
+        "ADDRESS"           : "Adresse",
+        "POSTAL_ZIP"        : "Postleitzahl",
+        "PHONE"             : "Telefon",
+        "CITY"              : "Stadt",
+        "EMAIL"             : "Email",
+        "CONTACTS"          : "Kontakte",
+        "CONTACT"           : "Kontakt",
+        "GSM"               : "GSM",
+        "DOC"               : "Doc",
+        "FUNCTION"          : "Funktion",
+        "POST_NUMBER"       : "Beitragsnummer",
+        "POST_NUMBERS"      : "Postnummern",
+        "PLACE_CITY"        : "Ort / Stadt",
+        "NEW_POST"          : "Neuer Beitrag",
+        "EDIT"              : {
+            "ADDRESS"           : "Adresse",
+            "ADMINISTRATION"    : "Verwaltung",
+            "EXTRA"             : "Extra",
+            "HISTORY"           : "Geschichte",
+            "BILL"              : "Bill",
+            "DOCUMENTS"         : "Dokumente",
+            "REVENUE"           : "Einnahmen",
+            "DATA"              : "Data"
+        }
+    },
+
+    "SCHEDULER"             : {
+        "DAY"               : "Tag",
+        "WEEK"              : "Woche",
+        "MONTH"             : "Monat",
+        "AGENDA"            : "Agenda",
+        "TODAY"             : "Heute",
+    
+        "MONDAY"            : "Montag",
+        "TUESDAY"           : "Dienstag",
+        "WEDNESDAY"         : "Mittwoch",
+        "THURSDAY"          : "Donnerstag",
+        "FRIDAY"            : "Freidag",
+        "SATURDAY"          : "Samsdag",
+        "SUNDAY"            : "Sonntag",
+        
+        "JANUARY"           : "Januar",
+        "FEBRUARY"          : "Februar",
+        "MARCH"             : "März",
+        "APRIL"             : "April",
+        "MAY"               : "Mai",
+        "JUNE"              : "Juni",
+        "JULY"              : "Juli",
+        "AUGUST"            : "August",
+        "SEPTEMBER"         : "September",
+        "OCTOBER"           : "Oktober",
+        "NOVEMBER"          : "November",
+        "DECEMBER"          : "Dezember"
+    }
+
+}

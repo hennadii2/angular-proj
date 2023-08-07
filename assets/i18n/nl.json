@@ -1,0 +1,135 @@
+{
+    "EON"                   : "EON",
+    "ERP_ON_LINE"           : "ERP Online",
+    "LOGIN"                 : {
+        "GO"                : "GO",
+        "LOGIN"             : "LOG IN",
+        "FORGOT"            : "Vergeten",
+        "EMAIL"             : "E-mail",
+        "PASSWORD"          : "Wachtwoord",
+        "GET_STARTED"       : "Aan de slag",
+        "REMEMBER_EMAIL"    : "Onthoud e-mail",
+        "REMEMBER_LOGIN"    : "Onthoud login",
+        "TEXT_STORE"        : "Log in uw winkel",
+        "USER"              : "Gebruiker"
+    },
+
+    "MENU"                  : {
+        "CUSTOMERS"         : "Klanten",
+        "INVOICES"          : "Facturen",
+        "SUPPLIERS"         : "Leveranciers",
+        "QUOTATIONS"        : "Offertes",
+        "ORDER_RECEIPTS"    : "Bestelbonnen",
+        "DELIVERY_NOTES"    : "Leveringsbonnen",
+        "ARTICLES"          : "Artikelen",
+        "REPORTS"           : "Rapporten",
+        "MAKE_FREE_USER"    : "Maak gratis gebruiker"
+    },
+    
+    "LANGUAGE"              : "Sprache",  
+    "LANGUAGES"             : {
+        "ENGLISH"           : "Englisch",
+        "GERMAN"            : "Deutsch",
+        "DUTCH"             : "Dutch",
+        "FRENCH"            : "Französisch"
+    },
+
+    "NEW"                   : "Nieuw",
+    "CREATE"                : "Maken",
+    "EDIT"                  : "Bewerken",
+    "UPDATE"                : "Update",
+    "LIST"                  : "Lijst",
+    "INSERT"                : "Invoegen",
+    "DELETE"                : "Verwijderen",
+    "PREVIOUS"              : "Vorige",
+    "NEXT"                  : "Volgende",
+    "SEARCH"                : "Zoek",
+    "SEARCH_KEY"            : "Zoeksleutel",
+    "VIEW"                  : "Uitzicht",
+    "FILTER"                : "Filter",
+    "YES"                   : "Ja",
+    "NO"                    : "Nee",
+    "SAVE"                  : "Opslaan",
+    "CANCEL"                : "Annuleren",
+    "PRINT"                 : "Afdrukken",
+    "SELECT"                : "Select",
+    "COMPANY"               : "Bedrijf",
+    "REPORT"                : "Rapport",
+    "DEBIT"                 : "Debet",
+    "CREDIT"                : "Krediet",
+
+    "TABLE_LOADING"         : "Even geduld terwijl uw rijen worden geladen",
+    "TABLE_NO_ROWS"         : "Er zijn geen rijen",
+
+    "FILTERTEXT"            : "Typ tekst om te filteren...",
+    "FILTERTOOLTIP"         : "Druk op enter of klik op de zoek knop om het resultaat te zien.",
+
+    "SEARCHTEXT"            : "Typ hier uw zoekopdracht...",
+
+    "SCANTEXT"              : "Scan uw document",
+
+    "MODAL"                 : {
+        "CONFIRM"           : "Bevestigen",
+        "CONFIRM_MESSAGE"   : "Weet u het zeker?",
+        "CHANGES_NOT_SAVED" : "Wijzigingen opslaan?"
+    },
+
+    "CUSTOMER"              : {
+        "CUSTOMER"          : "Klant",
+        "CUSTOMERS"         : "Klanten",
+        "NAME"              : "Naam",
+        "ADDRESS"           : "Adres",
+        "POSTAL_ZIP"        : "Postcode",
+        "PHONE"             : "Telefoon",
+        "CITY"              : "Stad",
+        "EMAIL"             : "E-mail",
+        "CONTACTS"          : "Contacten",
+        "CONTACT"           : "Contact",
+        "GSM"               : "GSM",
+        "DOC"               : "Doc",
+        "FUNCTION"          : "Functie",
+        "POST_NUMBER"       : "Postnummer",
+        "POST_NUMBERS"      : "Postnummers",
+        "PLACE_CITY"        : "Plaats / Stad",
+        "NEW_POST"          : "Nieuwe bericht",
+        "EDIT"              : {
+            "ADDRESS"           : "Adres",
+            "ADMINISTRATION"    : "Administratie",
+            "EXTRA"             : "Extra",
+            "HISTORY"           : "Historiek",
+            "BILL"              : "Rekening",
+            "DOCUMENTS"         : "Documenten",
+            "REVENUE"           : "Omzet",
+            "DATA"              : "Data"
+        }
+    },
+
+    "SCHEDULER"             : {
+        "DAY"                   : "Dag",
+        "WEEK"                  : "Week",
+        "MONTH"                 : "Maand",
+        "AGENDA"                : "Agenda",
+        "TODAY"                 : "Vandaag",
+    
+        "MONDAY"                : "Maandag",
+        "TUESDAY"               : "Dinsdag",
+        "WEDNESDAY"             : "Woensdag",
+        "THURSDAY"              : "Donderdag",
+        "FRIDAY"                : "Vrijdag",
+        "SATURDAY"              : "Zaterdag",
+        "SUNDAY"                : "Zondag",
+    
+        "JANUARY"               : "Januari",
+        "FEBRUARY"              : "Februari",
+        "MARCH"                 : "Maart",
+        "APRIL"                 : "April",
+        "MAY"                   : "Mei",
+        "JUNE"                  : "Juni",
+        "JULY"                  : "Juli",
+        "AUGUST"                : "Augustus",
+        "SEPTEMBER"             : "September",
+        "OCTOBER"               : "Oktober",
+        "NOVEMBER"              : "November",
+        "DECEMBER"              : "December"
+    }
+}

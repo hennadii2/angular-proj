@@ -1,0 +1,20 @@
+<div id="data-driven-modal-web-page">
+  <div class="modal-header p-3">
+    <h5 class="modal-title">
+      {{ pagetype != PageType.TabForm ? (title ? title : 'REPORT' | translate) : ""}}
+    </h5>
+    <app-data-driven-buttons
+      [buttons]="buttons"
+      [disabled_buttons]="disabled_buttons"
+      [isRefreshButtonEnabled]="isDashboardElement? true : false"
+      (onClick)="clickButtonBar($event)">
+    </app-data-driven-buttons>
+  </div>
+	<div class="modal-body py-0">
+    <iframe
+      class="w-100"
+      [src]="externalUrl | safe:'resourceUrl'"
+      [style.height]="'100vh'">
+    </iframe>
+  </div>
+</div>

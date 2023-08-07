@@ -1,0 +1,30 @@
+// :host {
+    #packing-warehouse{
+        input,
+        button,
+        textarea,
+        .form-control-label,
+        .jqx-widget-content{
+            font-size: 18px;
+        }
+    }
+    
+    .location-modal {
+        .modal-dialog {
+            max-width: 400px;
+        }
+    }
+
+    .alert-modal {
+        font-size: 20px;
+        .modal-title {
+            font-size: 20px;
+        }
+
+        .modal-body,
+        .form-control,
+        input {
+            font-size: 18px;
+        }
+    }
+// }

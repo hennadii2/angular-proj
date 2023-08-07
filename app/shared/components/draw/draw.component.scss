@@ -1,0 +1,24 @@
+// :host {
+    #draw{
+        canvas {
+            border: 1px solid gray;
+        }
+        .ng-select {
+            .ng-value {
+                width: 100%;
+                .width-item {
+                    width: 100%;
+                }
+            }
+            .width-item {
+                display: flex;
+                align-items: center;
+                height: 12px;
+                div {
+                    border-top: 1px solid black;
+                }
+            }
+        }
+
+    }
+// }

@@ -1,0 +1,100 @@
+// :host {
+    .menu-sidebar.compacted {
+        #sidebar-menu{
+            .sub-menus,
+            .menu-subicon .chevron,
+            span {
+                display: none;
+            }
+        }
+    }
+    
+    #sidebar-menu{
+        margin-left: -18px;
+        margin-right: -18px;
+        border-bottom: 1px solid #536372;
+        .main-menus,
+        .sub-menus {
+            .menu-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-direction: row;
+                position: relative;
+                color: white;
+                cursor: pointer;
+                padding: 10px;
+                //border-bottom: 1px solid #536372;
+                //border-top: 1px solid #536372;
+
+                .menu-content {
+                    i {
+                        font-size: 25px;
+                        color: #6CA0BB;
+                        min-width: 30px;
+                    }
+                }
+
+                .menu-subicon {
+                    .chevron{
+                        font-size: 12px;
+                    }
+                }
+    
+                &.active,
+                &:hover {
+                    background-color: #44515D;
+                    i {
+                        color: #21C1DF;
+                    }
+                    span {
+                        font-weight: 600;
+                    }
+                }
+
+                .navigation {
+                    content: '';
+                    position: absolute;
+                    left: calc(100% - 10px);
+                    top: calc(50% - 10px);
+                    width: 0;
+                    height: 0;
+                    border-top: 10px solid transparent;
+                    border-bottom: 10px solid transparent;
+                    border-right: 10px solid #e3e9ee;
+                }
+            }
+        }
+        .main-menus>.sub-menus {
+            background-color: #525561;
+        }
+        .sub-menus>.sub-menus {
+            //background-color: #545362;
+        }
+        .main-menus>.menu-item {
+            border-top: 1px solid #536372;
+            //border-bottom: 1px solid #536372;
+        }
+        .sub-menus .menu-item {
+           // border-bottom: 1px solid #536372;
+        }
+    }
+
+//     @media screen and (max-width: 1086px) {
+//         .menu-item{
+//             span{
+//                 display: none;
+//             }
+//         }
+//     }
+// }
+
+.packing-modal {
+    .modal-dialog {
+        max-width: 100%;
+        margin: 0;
+        .modal-content {
+            min-height: 100vh;
+        }
+    }
+}

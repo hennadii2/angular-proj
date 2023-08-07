@@ -1,0 +1,55 @@
+<div id="file-uplaod" class="d-flex flex-column align-items-center">
+
+    <label class="uploader text-center w-100"
+        [style.height.px]="height ? height * 33 : DEFAULT_HEIGHT" 
+        ondragover="return false;"
+        [class.loaded]="loaded" 
+        [class.required]="required && !imageSrc"
+        [class.dragging]="dragging"
+        (dragenter)="handleDragEnter()"
+        (dragleave)="handleDragLeave()"
+        (drop)="handleDrop($event)">
+
+        <input type="file" name="file" 
+            accept="*"
+            #fileInput
+            (change)="handleInputChange($event)">
+
+        <div *ngIf="!file"> 
+            <h4 class="text-center">Drop file here</h4>
+        </div>
+
+        <div *ngIf="!!file && IsObjectType(file)" class="w-100">
+            <div>
+                <a class="text-center file-url-link h4"  target="_blank" download="{{file.name}}">{{file.name}}</a>
+                <!-- <button
+                    type="button" nbButton
+                    class="btn btn-primary ml-2" 
+                    [class.icon-btn]="is_icon"
+                    [ngStyle]="{'border-radius.px': button_corner}"
+                    (click)="uploadFile($event)">
+                        <i class="ion-upload"></i>
+                </button> -->
+            </div>
+            <div>
+                <button
+                    type="button" nbButton
+                    class="btn btn-danger ml-2" 
+                    [class.icon-btn]="is_icon"
+                    [ngStyle]="{'border-radius.px': button_corner}"
+                    (click)="removeFile($event)">
+                        <span class="{{ABO_ICONS['f']}}"></span>
+                </button>
+            </div>
+            <div class="m-3" *ngIf="!!progress">
+                <ngb-progressbar type="success" [showValue]="true" [value]="progress"></ngb-progressbar>
+            </div>
+        </div>
+
+        <div *ngIf="!!file && IsStringType(file)" class="h-100 d-flex align-items-center justify-content-center">
+            <a class="text-center h4 file-url-link" href="javascript:void(0);" (click)="downloadFile(file)">
+                {{file}}
+            </a>
+        </div>
+    </label>
+</div>

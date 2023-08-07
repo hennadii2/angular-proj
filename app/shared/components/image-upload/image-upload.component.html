@@ -1,0 +1,31 @@
+<div id="image-uplaod" class="d-flex flex-column align-items-center">
+
+    <label class="uploader text-center w-100"
+        [style.height.px]="height ? height * 33 : DEFAULT_HEIGHT" 
+        ondragover="return false;"
+        [class.loaded]="loaded" 
+        [class.required]="required && !imageSrc"
+        [class.dragging]="dragging"
+        (dragenter)="handleDragEnter()"
+        (dragleave)="handleDragLeave()"
+        (drop)="handleDrop($event)">
+
+        <img
+            *ngIf="imageSrc"
+            [src]="imageSrc" 
+            (load)="handleImageLoad()"
+            class=""
+            [class.loaded]="imageLoaded"/>
+
+        <input type="file" name="file" 
+            accept="image/*"
+            #fileInput
+            (change)="handleInputChange($event)">
+
+        <div *ngIf="!imageSrc">
+            <h1 class="text-center">+</h1>
+            <h4 class="text-center">DRAG AND DROP</h4>
+        </div>
+  
+    </label>
+</div>

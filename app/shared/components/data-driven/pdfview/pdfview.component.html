@@ -1,0 +1,19 @@
+<div id="data-driven-pdfview" class="pb-1 {{form_class}}">
+    <div class="my-2">
+        <app-data-driven-buttons
+            [buttons]="buttons"
+            [disabled_buttons]="disabled_buttons"
+            (onClick)="clickButtonBar($event)">
+        </app-data-driven-buttons>
+    </div>
+
+    <nb-card class="pdfview-card mt-3" nbSpinnerStatus="success" [nbSpinner]="!base64src">
+        <iframe 
+            *ngIf="currentPdf" 
+            #iframePdf 
+            [src]="currentPdf | safe:'resourceUrl'" 
+            class="w-100"
+            [style.height]="'75vh'">
+        </iframe>
+    </nb-card>
+</div>

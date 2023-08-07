@@ -1,0 +1,60 @@
+<div id="login" class="row bg-white">
+    <div class="login-left col-md-6 min-vh-100">
+        <div class="row">
+            <div class="col-md-12 col-sm-6 col-12 d-flex align-items-center justify-content-center">
+                <img class="mw-100" [src]="getLogoImgUrl()" alt="EON">
+            </div>
+            <div class="col-md-12 col-sm-6 col-12 d-flex flex-column align-items-center">      
+                <form class="form text-left w-75" name="form" [formGroup]="form" novalidate (ngSubmit)="submit()">
+                    <div class="mb-4">
+                        <input type="text" #username class="form-control mb-2" placeholder="{{'LOGIN.USER' | translate}}"  [formControlName]="'user'" >
+                        <show-errors [control]="form.controls['user']"></show-errors>
+                    </div>
+                    <div class="mb-4">
+                        <input type="password" #password class="form-control mb-2" placeholder="{{'LOGIN.PASSWORD' | translate}}" [formControlName]="'password'" >
+                        <show-errors  [control]="form.controls['password']"></show-errors>
+                    </div>
+                    <div class="mb-4">
+                        <input type="text" class="form-control mb-2" 
+                        [hidden]="!!globals.apiUrl && globals.apiUrl!=''"
+                        placeholder="URL of API server" formControlName="ip">
+                        <show-errors [control]="form.controls.ip"></show-errors>
+                    </div>
+                    <div class="mb-4 text-center">
+                        <button type="submit" class="w-100 login-left-btn btn-round btn-lg" [disabled]="form.invalid">{{'LOGIN.LOGIN' | translate}}</button>
+                    </div>
+                </form>
+                <div class="w-75 d-flex justify-content-between">
+
+                    <label class="form-check-label">
+                        <!-- <input type="checkbox" class="form-check-input" [formControlName]="'success'">
+                        {{'LOGIN.REMEMBER_LOGIN' | translate}} -->
+                    </label>
+                    <!-- <nb-checkbox status="success">{{'LOGIN.REMEMBER_LOGIN' | translate}}</nb-checkbox> -->
+                    <ng-select
+                        [items]="langs"
+                        bindLabel="title"
+                        bindValue="id"
+                        [virtualScroll]="true"
+                        [(ngModel)]="selectedLang"
+                        [clearable]="false"
+                        [searchable]="false"
+                        (change)="changeLanuage($event)">
+                        <ng-template ng-label-tmp let-item="item">
+                            <img height="15" width="20" src="assets/images/langs/{{item.id}}.gif"/>
+                            <b class="pl-2">{{item.title | translate }}</b>
+                        </ng-template>
+                    
+                        <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                            <img height="15" width="20" src="assets/images/langs/{{item.id}}.gif"/>
+                            <b class="pl-2">{{item.title | translate }}</b>
+                        </ng-template>
+                    </ng-select>
+                </div>
+            </div> 
+        </div> 
+    </div>
+    <div class="login-right col-md-6 p-0 min-vh-100 overflow-auto d-none d-md-block">
+        <iframe [src]="getSiteUrl() | safe:'resourceUrl'" class="border-0 w-100 h-100"></iframe>
+    </div>
+</div>

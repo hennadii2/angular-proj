@@ -1,0 +1,27 @@
+<div id="packing">
+    <app-packing-users
+        *ngIf="packingView==PackingView.Users"
+        [endpoint]="endpoint"
+        (onSelectUser)="onSelectUser($event)"
+        (onClose)="close()">
+    </app-packing-users>
+
+    <app-packing-search
+        *ngIf="packingView==PackingView.Search"
+        [user]="selected_user"
+        [logged_user]="logged_user"
+        [onclick]="onclick"
+        (onFoundProducts)="onFoundProducts($event)"
+        (onChangeUser)="onChangeuser()"
+        (onClose)="close()">
+    </app-packing-search>
+
+    <app-packing-warehouse
+        *ngIf="packingView==PackingView.Warehouse"
+        [infor]="productsInfor"
+        [user]="selected_user"
+        [logged_user]="logged_user"
+        (onBack)="goSearch()"
+        (onClose)="close()">
+    </app-packing-warehouse>
+</div>

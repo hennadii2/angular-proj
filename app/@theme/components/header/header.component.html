@@ -1,0 +1,32 @@
+<div class="header-container"
+     [class.left]="position === 'normal'"
+     [class.right]="position === 'inverse'">
+  <div class="logo-containter">
+    <a (click)="toggleSidebar()" href="#" class="navigation">
+      <!-- <i class="nb-menu"></i> -->
+      <img src="assets/images/icon-menu-minimized-white.png" width="24" alt="minimize">
+    </a>
+    <div class="logo" (click)="goToHome()">{{ tokenStorage.getAppName() }}</div>
+  </div>
+</div>
+
+
+<div class="header-container w-100 d-flex justify-content-start">
+    <ngx-header-top-menu></ngx-header-top-menu>
+</div>
+
+<div class="header-container">
+  <nb-actions
+    size="medium"
+    [class.right]="position === 'normal'"
+    [class.left]="position === 'inverse'">
+
+    <nb-action *nbIsGranted="['view', 'user']" (click)="logout()">
+      <span class="mt-1" style="cursor:pointer;" >LogOut</span>
+    </nb-action>
+
+      <nb-action  *nbIsGranted="['view', 'user']">
+        <span *ngIf="!!infopages_url" class="ion-help mt-1" style="cursor:pointer;"  (click)="gotoInfoPages()"></span>
+    </nb-action>
+  </nb-actions>
+</div>

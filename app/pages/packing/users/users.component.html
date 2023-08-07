@@ -1,0 +1,32 @@
+<div id="packing-users">
+    <div class="modal-header">
+        <div></div>
+        <h4 class="modal-title">Users</h4>
+		<button 
+            type="button" 
+            class="btn btn-primary ml-2"
+            [ngStyle]="{'border-radius.px': button_corner}"
+            (click)="close()">
+                <span class="{{ABO_ICONS['s']}}"></span>
+        </button>
+    </div>
+    
+    <div class="modal-body">
+        <div class="users mt-3">
+            <div class="d-flex justify-content-center align-content-between flex-wrap">
+                <ng-container *ngFor =" let user of users; let i = index;">
+                    <button  type="button" nbButton
+                        class="btn ml-2 mt-2 user-btn"
+                        [ngStyle]="{'border-radius.px': button_corner}"
+                        [class.btn-primary]="selected_user==user"
+                        [class.btn-outline-primary]="selected_user!=user"
+                        (click)="clickUser(user)">
+                            {{user.naam}}
+                    </button>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,69 @@
+<div id="picking-search">
+    <div class="modal-header">
+        <div></div>
+        <h4 class="modal-title">{{title | translate}}</h4>
+		<button 
+            type="button" 
+            class="btn btn-primary ml-2"
+            [ngStyle]="{'border-radius.px': button_corner}"
+            (click)="close()">
+                <span class="{{ABO_ICONS['s']}}"></span>
+        </button>
+    </div>
+    
+    <form onReturn onArrow onTab class="form mt-2" name="form" [formGroup]="form" >
+        <div class="mt-3">
+            <h4 class="text-center">Scan Documents</h4>
+            <div class="form-group pt-2 d-flex flex-column align-items-center">
+                <div class="input-group mw-400">
+                    <input 
+                        #docInput
+                        [type]="'text'"
+                        class="form-control w-75 doc-input"
+                        placeholder="{{ 'SCANTEXT' | translate}}"
+                        formControlName="document"
+                        [class.form-control-danger]="(form.controls['document'].errors &&
+                        (form.controls['document'].dirty || form.controls['document'].touched) )" 
+                        (keydown)="onKeyDownDocumentInput($event)">
+
+                    <!-- <span class="input-group-append" >
+                        <button type="button"
+                            class="btn icon-btn btn-primary search-product-btn"
+                            (click)="searchProducts()">
+                            <span [class]="ABO_ICONS['j']"></span>
+                        </button>
+                    </span> -->
+                </div>
+                <div class="mw-400">
+                    <show-errors [control]="form.controls['document']"></show-errors>
+                </div>
+            </div>
+            <div class="position-relative d-flex justify-content-center">
+                <app-num-keypad>
+                </app-num-keypad>
+            </div>
+        </div>
+
+
+        <div class="users mt-3">
+            <h4 class="text-center">Users</h4>
+            <div class="d-flex justify-content-center align-content-between flex-wrap">
+                <ng-container *ngFor =" let user of users; let i = index;">
+                    <label>
+                        <input type="radio" name="persoon" class="d-none" formControlName="persoon" [value]="user.persoon">
+                        <button  type="button" nbButton
+                            class="btn ml-2 mt-2 user-btn"
+                            [ngStyle]="{'border-radius.px': button_corner}"
+                            [class.btn-primary]="form.controls['persoon'].value==user.persoon"
+                            [class.btn-outline-primary]="form.controls['persoon'].value!=user.persoon"
+                            (click)="clickUser(user)">
+                                {{user.naam}}
+                        </button>
+                    </label>
+                </ng-container>
+            </div>
+        </div>
+
+    </form>
+</div>
+

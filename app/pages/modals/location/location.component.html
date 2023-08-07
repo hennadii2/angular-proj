@@ -1,0 +1,45 @@
+<div id="modal-location">
+	<div class="modal-header p-1">
+		<h5 class="modal-title">{{art_nummer}} - {{omschr_new}}</h5>
+		<div class="d-flex align-items-center">
+			<button
+				type="button" nbButton
+				class="btn btn-primary ml-2"
+				[class.btn-primary]="show_all"
+				[class.btn-outline-primary]="!show_all"
+				[ngStyle]="{'border-radius.px': button_corner}"
+				(click)="changeShowWay()">
+					All
+			</button>
+			<button
+				type="button" nbButton
+				class="btn btn-primary ml-2"
+				[ngStyle]="{'border-radius.px': button_corner}"
+				(click)="closeModal()">
+					<span class="{{ABO_ICONS['s']}}"></span>
+			</button>
+		</div>
+	</div>
+
+	<div class="modal-body p-1">
+		<jqxGrid
+			#jqxGrid
+			[theme]="'energyblue'"
+			[source]="gridAdapter"
+			[columns]="columns"
+			[rowsheight]="ROW_HEIGHT"
+			[autoheight]="true"
+			[width]="getGridWidth()"
+			[columnsresize]="true"
+			[sortable]="true"
+			[ready]="gridReady"
+			[rendered]="gridRendered"
+			[altrows]="true"
+			[selectionmode]="GridSelectionMode.SingleRow"
+			[scrollmode]="'logical'"
+
+			(onRowclick)="onRowDoubleClick($event)"
+			(onRowdoubleclick)="onRowDoubleClick($event)">
+		</jqxGrid>
+	</div>
+</div>	

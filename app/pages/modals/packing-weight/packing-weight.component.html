@@ -1,0 +1,77 @@
+<div id="modal-packing-weight">
+	<div class="modal-header py-1">
+		<label style="font-size:20px;text-align:left;">{{lblCondition}}</label>		
+	</div>	
+	<div class="modal-body">
+		<form class="form" name="form" [formGroup]="form">
+			<div class="row">
+				<div class="col-3 col-md-3 d-flex align-items-start mt-2 justify-content-end pt-2">
+					<label class="form-control-label mb-0 text-right">Palletten:</label>
+				</div>
+				<div class="form-group col-3 col-md-3 pt-2">
+					<div class="input-group">
+						<input type="number" class="form-control" [formControlName]="BoxWeightFormField.Pallet">
+					</div>
+					<show-errors [control]="form.controls[BoxWeightFormField.Pallet]"></show-errors>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-3 col-md-3 d-flex align-items-start mt-2 justify-content-end pt-2">
+					<label class="form-control-label mb-0 text-right">Collis:</label>
+				</div>
+				<div class="form-group col-3 col-md-3 pt-2">
+					<div class="input-group">
+						<input type="number" class="form-control" [formControlName]="BoxWeightFormField.BoxesSize">
+					</div>
+					<show-errors [control]="form.controls[BoxWeightFormField.BoxesSize]"></show-errors>
+				</div>
+			</div>
+			<div class="row">
+				<ng-container class="col-3 col-md-3 d-flex align-items-start mt-2 justify-content-end pt-2"
+					formArrayName="boxes" *ngFor="let box of form.get('boxes').controls; let i = index">
+					<div class="col-3 col-md-3 d-flex align-items-start mt-2 justify-content-end pt-2">
+						<label class="form-control-label mb-0 text-right">Colli {{i+1}}:</label>
+					</div>
+					<div class="form-group col-3 col-md-3 pt-2">
+						<div class="input-group" [formGroupName]="i">
+							<input type="number" class="form-control" formControlName="weight"  (ngModelChange)="valueChange($event, i)">
+						</div>
+						<show-errors [control]="form.controls[boxes]"></show-errors>
+					</div>
+				</ng-container>
+			</div>
+			<div class="row">
+				<div class="form-group col-12 col-md-6">
+					<div class="mt-2">
+						<button type="button" class="btn btn-primary"
+							[ngStyle]="{'border-radius.px': button_corner, 'height.px': button_height}"
+							(click)="SendToBPost()">
+							Verstuur BPost&nbsp;&nbsp;
+						</button>
+					</div>
+					<div class="mt-2">
+						<button type="button" class="btn btn-primary"
+							[ngStyle]="{'border-radius.px': button_corner, 'height.px': button_height}"
+							(click)="SendToPostNL()">
+							Verstuur PostNL
+						</button>
+					</div>					
+				</div>
+				<div class="col-12 col-md-6 mt-2 d-flex justify-content-end">
+					<app-num-keypad>
+					</app-num-keypad>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer py-1">
+		<label style="font-size:20px;width:50%;text-align:left;">Totaal gewicht (kg): {{lblTotalWeight}}</label>
+		<button type="button" class="btn btn-primary" [ngStyle]="{'border-radius.px': button_corner}" (click)="yes()">
+			<span class="abo-uniE007"></span>
+		</button>
+		<button type="button" class="btn btn-danger" [ngStyle]="{'border-radius.px': button_corner}"
+			(click)="closeModal()">
+			<span class="abo-uniE00E"></span>
+		</button>
+	</div>
+</div>

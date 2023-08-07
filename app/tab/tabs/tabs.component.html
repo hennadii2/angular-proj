@@ -1,0 +1,32 @@
+<div class="tabs-wrapper" [class.tabs-nav-control-enabled]="_showPaginationControls">
+	<div
+		class="tabs-nav tabs-nav-prev"
+		(click)="scrollHeader('before')"
+		[class.tabs-pagination-disabled]="_disableScrollBefore"
+	>
+	<i class="ion-chevron-left"></i>
+	</div>
+	<div class="tabs-viewer" #tabListContainer>
+		<ul class="tabs" #tabList>
+			<li *ngFor="let tab of tabs" class="tab" (click)="selectTab(tab)" [class.active]="tab.active">
+				<a href="javascript:void(0)">{{tab.title | translate}}</a>
+			</li>
+			<!-- dynamic tabs -->
+			<li *ngFor="let tab of dynamicTabs" (click)="selectTab(tab)" class="tab" [class.active]="tab.active">
+				<a href="javascript:void(0)">{{tab.title | translate}}
+					<i class="nb-close" (click)="closeTab(tab)"></i>
+				</a>
+			</li>
+			<tab-ink-bar></tab-ink-bar>
+		</ul>
+	</div>
+	<div
+		class="tabs-nav tabs-nav-next"
+		(click)="scrollHeader('after')"
+		[class.tabs-pagination-disabled]="_disableScrollAfter"
+	>
+	<i class="ion-chevron-right"></i>
+	</div>
+</div>
+<ng-content></ng-content>
+<ng-template dynamic-tabs></ng-template>

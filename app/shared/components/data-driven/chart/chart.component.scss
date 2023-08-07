@@ -1,0 +1,14 @@
+:host {
+  #data-driven-chart{
+    min-height: 450px;
+    textarea {
+      resize: none;
+    }
+  }
+  .minus-margin-top {
+    margin-top: -47px;
+  }
+  .data-driven-chart__title {
+    float: left;
+  }
+}

@@ -1,0 +1,34 @@
+// :host {
+    #picking-search{
+
+        .user-btn {
+            height: 60px;
+            min-width: 200px;
+            font-size: 18px;
+        }
+
+
+        .mw-400 {
+            max-width: 400px;
+            input.doc-input {
+                font-size: 30px;
+                height:62px;
+            }
+
+            .search-product-btn {
+                width: 62px;
+            }
+        }
+    }
+// }
+
+.alert-modal {
+    font-size: 20px;
+    .modal-title {
+        font-size: 20px;
+    }
+
+    .modal-body {
+        font-size: 18px;
+    }
+}

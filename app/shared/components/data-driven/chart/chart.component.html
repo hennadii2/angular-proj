@@ -1,0 +1,92 @@
+<div id="data-driven-chart" class="py-1 {{form_class}}">
+  <h5 class="data-driven-chart">title</h5>
+  <div class="mb-2 d-flex justify-content-end">
+    <div class="text-right float-left">
+      <button
+        type="button" 
+        class="btn btn-primary ml-2"
+        [class.btn-success]="chartType == ChartType.Column"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        (click)="changeChartType(ChartType.Column)">
+        <span class="{{ABO_ICONS['2']}}"></span>
+      </button>
+
+      <button
+        type="button" 
+        class="btn btn-primary ml-2"
+        [class.btn-success]="chartType == ChartType.Line"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        (click)="changeChartType(ChartType.Line)">
+        <span class="{{ABO_ICONS['4']}}"></span>
+      </button>
+
+      <button
+        type="button" 
+        class="btn btn-primary ml-2"
+        [class.btn-success]="chartType == ChartType.Pie"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        (click)="changeChartType(ChartType.Pie)">
+        <span class="{{ABO_ICONS['3']}}"></span>
+      </button>
+    </div>
+    <app-data-driven-buttons
+      [buttons]="buttons"
+      [disabled_buttons]="disabled_buttons"
+      (onClick)="clickButtonBar($event)">
+    </app-data-driven-buttons>
+  </div>
+  <div *ngIf="chart && chart.data">
+    <jqxChart 
+      *ngIf="chartType == ChartType.Column"
+      [width]="'100%'" 
+      [height]="500"
+      [title]="chart?.title"
+      [description]="chart?.description"
+      [showLegend]="true" 
+      [enableAnimations]="true" 
+      [padding]="padding"
+      [titlePadding]="titlePadding" 
+      [source]="chart?.data" 
+      [xAxis]="xAxis"
+      [seriesGroups]="columnSeriesGroup" 
+      [colorScheme]="'scheme01'">
+    </jqxChart>
+
+    <jqxChart 
+      *ngIf="chartType == ChartType.Line"
+      [width]="'100%'" 
+      [height]="500"
+      [title]="chart?.title"
+      [description]="chart?.description"
+      [showLegend]="true" 
+      [enableAnimations]="true" 
+      [padding]="padding"
+      [titlePadding]="titlePadding" 
+      [source]="sumData" 
+      [xAxis]="xAxis"
+      [seriesGroups]="lineSeriesGroup" 
+      [colorScheme]="'scheme01'">
+    </jqxChart>
+
+    <ng-container  *ngIf="chartType == ChartType.Pie">
+      <ng-container *ngFor="let group of pieSeriesGroups; let i=index;">
+        <jqxChart 
+          style="float: left; min-width: 300px;"
+          [width]="'100%'" 
+          [height]="450"
+          [title]="''"
+          [description]="chart?.legend[i+1].title"
+          [showLegend]="true" 
+          [showBorderLine]="true"
+          [enableAnimations]="true" 
+          [padding]="padding"
+          [titlePadding]="titlePadding" 
+          [source]="chart?.data" 
+          [xAxis]="xAxis"
+          [seriesGroups]="group" 
+          [colorScheme]="'scheme01'">
+        </jqxChart>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

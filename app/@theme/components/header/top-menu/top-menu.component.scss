@@ -1,0 +1,31 @@
+:host {
+}
+
+.jqx-widget-header-metrodark {
+    border: none;
+    background-color: #111218;
+    .jqx-item {
+        font-family: Exo;
+        font-size: 14px;
+    }
+}
+
+.jqx-menu-popup {
+    //z-index: 99999 !important;
+}
+
+.jqx-menu-wrapper {
+    background-color: #3E3E42;
+    //z-index: 99999 !important;
+    max-height: calc(100vh - 100px) !important;
+    overflow: auto;
+}
+.packing-modal {
+    .modal-dialog {
+        max-width: 100%;
+        margin: 0;
+        .modal-content {
+            min-height: 100vh;
+        }
+    }
+}

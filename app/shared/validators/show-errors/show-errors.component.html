@@ -1,0 +1,7 @@
+<ul *ngIf="shouldShowErrors()" class = "show_error" >
+    <ng-container *ngFor="let error of listOfErrors()">
+    <li class = "show_error_item" *ngIf="error && error.msg">
+        {{ error.msg }}
+    </li>
+  </ng-container>
+</ul>

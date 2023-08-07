@@ -1,0 +1,37 @@
+<div *ngIf="menus">
+	<jqxMenu 
+		#jqxMenu
+		*ngIf="menus && menus.length > 0"
+		[theme]="'metrodark'"
+		[width]="'100%'"
+		[height]="30"
+		[source]="records"
+		[autoOpenPopup]="false"
+		[minimizeWidth]="960"
+		[popupZIndex]="1049"
+		[autoCloseOnClick]="true"
+		[showTopLevelArrows]="true"
+		[mode]="'horizontal'"
+		[easing]="'linear'"
+		(mouseleave)="mouseleaveMenu($event)"
+		(onItemclick)="itemclick($event)">
+		<!-- <ul>
+			<li *ngFor="let menu of menus">
+				<ng-container *ngTemplateOutlet="menuTpl; context: {menu: menu}"></ng-container>
+			</li>
+		</ul> -->
+	</jqxMenu>
+</div>
+
+<!-- <ng-template #menuTpl let-menu="menu">
+		<div (click)="clickMenu(menu)" >
+			<i *ngIf="menu.icon" class="{{ ABO_ICONS[menu.icon] }}"></i>
+			<span class="ml-1 my-1 text-left">{{menu.title | translate}}</span>
+		</div>
+
+		<ul *ngIf="menu.submenu && menu.actived" style='width: 200px;'>
+			<li *ngFor="let m of menu.submenu">
+				<ng-container *ngTemplateOutlet="menuTpl; context: {menu: m}"></ng-container>
+			</li>
+		</ul>
+</ng-template> -->

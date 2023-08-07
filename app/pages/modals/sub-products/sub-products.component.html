@@ -1,0 +1,44 @@
+<div id="modal-sub-products">
+	<div class="modal-header p-3">
+		<h5 class="modal-title">Sub Products</h5>
+		<div>
+			<button
+					type="button" nbButton
+					class="btn btn-success ml-2"
+					[ngStyle]="{'border-radius.px': button_corner}"
+					[disabled]="!hasSelectedRows()"
+					(click)="select()">
+						<span class="{{ABO_ICONS['a']}}"></span>
+			</button>
+			<button
+				type="button" nbButton
+				class="btn btn-primary ml-2"
+				[ngStyle]="{'border-radius.px': button_corner}"
+				(click)="exit()">
+					<span class="{{ABO_ICONS['s']}}"></span>
+			</button>
+		</div>
+	</div>
+
+	<div class="modal-body">
+		<jqxGrid 
+			#jqxGrid
+			[theme]="'energyblue'"
+			[width]="getWidth()"
+			[rowsheight]="ROW_HEIGHT"
+			[autoheight]="true"
+			[source]="dataAdapter"
+			[altrows]="true"
+			[sortable]="true"
+			[columnsresize]="true"
+			[columns]="columns"
+			[ready]="gridReady"
+			[selectionmode]="GridSelectionMode.MultipleRows"
+			[scrollmode]="'logical'"
+
+			(onRowclick)="onRowDoubleClick($event)"
+			(onRowdoubleclick)="onRowDoubleClick($event)">
+		</jqxGrid>
+	</div>
+
+</div>	

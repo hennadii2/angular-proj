@@ -1,0 +1,9 @@
+<div class="pivot--table-wrapper">
+  <h5 *ngIf="isDashboardElement">{{ title }}</h5>
+  <wbr-pivot #pivotTable
+    [toolbar]="!hideToolbar"
+    [width]="'100%'"
+    [height]="500"
+    (reportcomplete)="onReportComplete($event)">
+  </wbr-pivot>
+</div>

@@ -1,0 +1,65 @@
+#data-driven-form{
+  min-height: 400px;
+  textarea {
+    resize: none;
+  }
+  .form-group jqxDateTimeInput {
+    .jqx-input {
+        padding-left: 1.125rem;
+        border: none;
+    }
+  }
+  .form-group {
+    margin-bottom: 0.3rem;
+    .form-btn {
+      white-space: normal;
+      word-wrap: break-word;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+  }
+
+  .label-divider {
+    border-bottom: 1px solid #dadfe6;
+  }
+
+  ngx-material-timepicker-toggle {
+    z-index: 2;
+    .ngx-material-timepicker-toggle {
+      color: #ffffff;
+      background-color: #73a1ff;
+      border-color: transparent;
+      padding: 4px 7px 6px 7px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: 0.17rem;
+      border-bottom-right-radius: 0.17rem;
+      &:hover {
+        background-color: #87aeff;
+      }
+      &:active:focus {
+        background-color: #638adb;
+        box-shadow: none;
+      }
+      .ng-star-inserted {
+        fill: white;
+      }
+    }
+  }
+}
+
+.minus-margin-top {
+  margin-top: -50px;
+}
+
+.calculator-modal {
+  width: 306px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.data-driven-form__title {
+  float: left;
+}

@@ -1,0 +1,196 @@
+<div *ngIf="buttons && buttons.length >0" id="data-driven-buttons" class="text-right">
+    <button *ngIf="buttons.indexOf(ButtonType.Select) > -1" 
+            type="button" nbButton
+            class="btn btn-success ml-2"
+            [class.icon-btn]="is_icon"
+            [ngStyle]="{'border-radius.px': button_corner}"
+            [disabled]="disabled_buttons.indexOf(ButtonType.Select) > -1"
+            (click)="clickButton(ButtonType.Select)">
+                <span class="{{ABO_ICONS['a']}}"></span>
+    </button>
+    
+    <button
+      *ngIf="isRefreshButtonEnabled && !buttons.includes('refresh')" 
+      type="button"
+      class="btn btn-primary ml-2" 
+      [class.icon-btn]="is_icon"
+      [ngStyle]="{'border-radius.px': button_corner}"
+      (click)="clickButton(ButtonType.Refresh)"
+      nbButton>
+      <span class="{{ABO_ICONS['k']}}"></span>
+    </button>
+    
+    <button *ngIf="buttons.indexOf(ButtonType.Save) > -1" 
+        type="button" nbButton
+        class="btn btn-success ml-2"
+        [class.icon-btn]="is_icon"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        [disabled]="disabled_buttons.indexOf(ButtonType.Save) > -1"
+        (click)="clickButton(ButtonType.Save)">
+            <span class="{{ABO_ICONS['1']}}"></span>
+    </button>
+
+
+    <button *ngIf="buttons.indexOf(ButtonType.Add) > -1" 
+        type="button" nbButton
+        class="btn btn-primary ml-2" 
+        [class.icon-btn]="is_icon"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        [disabled]="disabled_buttons.indexOf(ButtonType.Add) > -1"
+        (click)="clickButton(ButtonType.Add)">
+            <span class="{{ABO_ICONS['e']}}"></span>
+    </button>
+
+    <button *ngIf="buttons.indexOf(ButtonType.Edit) > -1" 
+        type="button" nbButton
+        class="btn btn-primary ml-2" 
+        [class.icon-btn]="is_icon"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        [disabled]="disabled_buttons.indexOf(ButtonType.Edit) > -1"
+        (click)="clickButton(ButtonType.Edit)">
+            <span class="{{ABO_ICONS['i']}}"></span>
+    </button>
+
+    <button *ngIf="buttons.indexOf(ButtonType.Delete) > -1" 
+        type="button" nbButton
+        class="btn btn-danger ml-2" 
+        [class.icon-btn]="is_icon"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        [disabled]="disabled_buttons.indexOf(ButtonType.Delete) > -1" 
+        (click)="clickButton(ButtonType.Delete)">
+            <span class="{{ABO_ICONS['f']}}"></span>
+    </button>
+
+
+    <button *ngIf="buttons.indexOf(ButtonType.View) > -1" 
+        type="button" nbButton
+        class="btn btn-primary ml-2" 
+        [class.icon-btn]="is_icon"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        [disabled]="disabled_buttons.indexOf(ButtonType.View) > -1"
+        (click)="clickButton(ButtonType.View)">
+            <span class="{{ABO_ICONS['p']}}"></span>
+    </button>
+
+    <button *ngIf="buttons.indexOf(ButtonType.List) > -1" 
+        type="button" nbButton
+        class="btn btn-primary ml-2" 
+        [class.icon-btn]="is_icon"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        [disabled]="disabled_buttons.indexOf(ButtonType.List) > -1"
+        (click)="clickButton(ButtonType.List)">
+            <span class="{{ABO_ICONS['j']}}"></span>
+    </button>
+
+    <button *ngIf="buttons.indexOf(ButtonType.Previous) > -1"
+        type="button" nbButton
+        class="btn btn-primary ml-2" 
+        [class.icon-btn]="is_icon"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        [disabled]="disabled_buttons.indexOf(ButtonType.Previous) > -1"
+        (click)="clickButton(ButtonType.Previous)">
+            <span class="{{ABO_ICONS['c']}}"></span>
+    </button>
+
+    <button *ngIf="buttons.indexOf(ButtonType.Next) > -1"
+        type="button" nbButton
+        class="btn btn-primary ml-2" 
+        [class.icon-btn]="is_icon"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        [disabled]="disabled_buttons.indexOf(ButtonType.Next) > -1"
+        (click)="clickButton(ButtonType.Next)">
+            <span class="{{ABO_ICONS['d']}}"></span>
+    </button>
+
+    <button *ngIf="buttons.indexOf(ButtonType.Refresh) > -1"
+        type="button" nbButton
+        class="btn btn-primary ml-2" 
+        [class.icon-btn]="is_icon"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        [disabled]="disabled_buttons.indexOf(ButtonType.Refresh) > -1"
+        (click)="clickButton(ButtonType.Refresh)">
+            <span class="{{ABO_ICONS['k']}}"></span>
+    </button>
+
+
+    <button *ngIf="buttons.indexOf(ButtonType.OK) > -1" 
+        type="button" nbButton
+        class="btn btn-primary ml-2"
+        [class.icon-btn]="is_icon"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        [disabled]="disabled_buttons.indexOf(ButtonType.OK) > -1"
+        (click)="clickButton(ButtonType.OK)">
+            <span class="{{ABO_ICONS['a']}}"></span>
+    </button>
+ 
+    
+    <div class="d-inline-block ml-2" ngbDropdown #myDrop="ngbDropdown" *ngIf="buttons.indexOf(ButtonType.Export) > -1">
+        <button  nbButton
+            type="button" 
+            id="dropdownExport"
+            class="btn btn-primary"
+            [class.icon-btn]="is_icon"
+            [ngStyle]="{'border-radius.px': button_corner}"
+            [disabled]="disabled_buttons.indexOf(ButtonType.Export) > -1"
+            ngbDropdownToggle>
+                <span class="{{ABO_ICONS['L']}}"></span> &nbsp;
+        </button>
+
+        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownExport">
+            <button class="dropdown-item" (click)="clickButton(ButtonType.Export_Excel)">Excel</button>
+            <button class="dropdown-item" (click)="clickButton(ButtonType.Export_XML)">Xml</button>
+            <button class="dropdown-item" (click)="clickButton(ButtonType.Export_CSV)">CSV</button>
+            <button class="dropdown-item" (click)="clickButton(ButtonType.Export_TSV)">TSV</button>
+            <button class="dropdown-item" (click)="clickButton(ButtonType.Export_HTML)">HTML</button>
+            <button class="dropdown-item" (click)="clickButton(ButtonType.Export_JSON)">JSON</button>
+            <button class="dropdown-item" (click)="clickButton(ButtonType.Export_PDF)">PDF</button>
+        </div>
+    </div>
+
+    
+
+    <button *ngIf="buttons.indexOf(ButtonType.Print) > -1" 
+        type="button" nbButton
+        class="btn btn-primary ml-2"
+        [class.icon-btn]="is_icon"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        [disabled]="disabled_buttons.indexOf(ButtonType.Print) > -1"
+        (click)="clickButton(ButtonType.Print)">
+            <span class="{{ABO_ICONS['%']}}"></span>
+    </button>
+
+
+    <button *ngIf="buttons.indexOf(ButtonType.Cancel) > -1" 
+        type="button" nbButton
+        class="btn btn-primary ml-2"
+        [class.icon-btn]="is_icon"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        [disabled]="disabled_buttons.indexOf(ButtonType.Cancel) > -1"
+        (click)="clickButton(ButtonType.Cancel)">
+            <span class="{{ABO_ICONS['\\']}}"></span>
+    </button>
+
+    
+    <button *ngIf="buttons.indexOf(ButtonType.Exit) > -1" 
+        type="button" nbButton
+        class="btn btn-primary ml-2"
+        [class.icon-btn]="is_icon"
+        [ngStyle]="{'border-radius.px': button_corner}"
+        [disabled]="disabled_buttons.indexOf(ButtonType.Exit) > -1"
+        (click)="clickButton(ButtonType.Exit)">
+            <span class="{{ABO_ICONS['s']}}"></span>
+    </button>
+</div>
+
+<div *ngIf="!buttons && isRefreshButtonEnabled" id="data-driven-buttons" class="text-right">
+  <button
+    *ngIf="isRefreshButtonEnabled" 
+    type="button"
+    class="btn btn-primary ml-2" 
+    [class.icon-btn]="is_icon"
+    [ngStyle]="{'border-radius.px': button_corner}"
+    (click)="clickButton(ButtonType.Refresh)"
+    nbButton>
+    <span class="{{ABO_ICONS['k']}}"></span>
+  </button>
+</div>

@@ -1,0 +1,26 @@
+<div id="sidebar-menu">
+    <div *ngFor="let menu of menus" class="main-menus">
+        <ng-container *ngTemplateOutlet="menuTpl; context: {menu: menu}"></ng-container>
+    </div>
+</div>
+
+<ng-template #menuTpl let-menu="menu">
+    <div class="menu-item" [class.active]="menu==selectedMenu" (click)="clickMenu(menu)" >
+        <div class="menu-content d-flex align-items-center">
+            <i *ngIf="menu.icon" class="{{ ABO_ICONS[menu.icon] }}"></i>
+            <!-- {{ ABO_ICONS[menu.icon] }} -->
+            <span class="ml-1 my-1 text-left">{{menu.title | translate}}</span>
+            <div *ngIf="selectedMenu && menu==getMainMenu(menus, selectedMenu)" class="navigation"></div>
+        </div>
+        <div *ngIf="menu.submenu" class="menu-subicon">
+            <i *ngIf="menu.actived" class="ion chevron ion-chevron-down"></i>
+            <i *ngIf="!menu.actived" class="ion chevron ion-chevron-left"></i>
+        </div>
+    </div>
+
+    <div *ngIf="menu.submenu && menu.actived" class="pl-4 sub-menus">
+        <ng-container *ngFor="let m of menu.submenu">
+            <ng-container *ngTemplateOutlet="menuTpl; context: {menu: m}"></ng-container>
+        </ng-container>
+    </div>
+</ng-template>

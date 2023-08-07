@@ -1,0 +1,21 @@
+<div id="modal-confirm">
+	<div class="modal-header">
+		<h5 class="modal-title">{{ 'SELECT' | translate}} {{ 'COMPANY' | translate}}</h5>
+	</div>
+	<div class="modal-body">
+		<ng-select 
+			class="w-100"
+			[items]="companies"
+			[virtualScroll]="true"
+			[clearable]="false"
+			[searchable]="false"
+			bindLabel="naam"
+			bindValue="dossier"
+			[(ngModel)]="company">
+		</ng-select>
+
+	</div>
+	<div class="modal-footer py-1">
+		<button type="button" class="btn btn-success" [ngStyle]="{'border-radius.px': button_corner}" [disabled]="!company" (click)="select()">{{ 'SELECT' | translate}}</button>
+	</div>
+</div>

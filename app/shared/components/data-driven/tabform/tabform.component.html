@@ -1,0 +1,47 @@
+<div id="data-driven-tabform" class="{{form_class}}">
+    <div class="row">
+        <div class="col-6 d-flex align-items-center">
+            <h5>{{title}}</h5>
+        </div>
+
+        <div class="col-6">
+            <app-data-driven-buttons
+                [buttons]="buttons"
+                [disabled_buttons]="disabled_buttons"
+                (onClick)="clickButtonBar($event)">
+            </app-data-driven-buttons>
+        </div>
+    </div>
+
+    <div class="mt-2">
+        <ngb-tabset (tabChange)="beforeTabChange($event)">
+            <ngb-tab *ngFor="let tab of tab_pages" [id]="TAB_ID_PREFIX + tab.tab" [title]="tab.title">
+                <ng-template *ngIf="(!activeTabId) || (activeTabId==TAB_ID_PREFIX + tab.tab)" ngbTabContent>
+                    <app-data-driven-form
+                        *ngIf="tab.pagetype==PageType.Form"
+                        [endpoint]="tab.endpoint"
+                        [parent_id]="parent_id"
+                        [id]="id"
+                        [buttons]="tab.buttons"
+                        [rowrefresh]="rowrefresh"
+                        [isDashboardElement] = "isDashboardElement"
+                        (onClickButtonBar)="clickButtonBar($event)"
+                        (onCreated)="afterCreate($event)"
+                        (onUpdated)="afterUpdate($event)">
+                    </app-data-driven-form>
+
+                    <app-data-driven-grid
+                        *ngIf="tab.pagetype==PageType.Grid"
+                        [endpoint]="tab.endpoint"
+                        [pagetype]="PageType.Grid"
+                        [id]="id"
+                        [buttons]="tab.buttons"
+                        [onclick]="tab.onclick"
+                        [rowrefresh]="rowrefresh"
+                        [hidefilter]="tab.hidefilter">
+                    </app-data-driven-grid>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>

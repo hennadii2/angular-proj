@@ -1,0 +1,9 @@
+<div id="modal-calculator">
+	<div class="modal-body p-0 m-0">
+		<app-calculator
+			[value]="value"
+			(onCancel)="closeModal()"
+			(onOk)="onOk($event)">
+		</app-calculator>
+	</div>
+</div>

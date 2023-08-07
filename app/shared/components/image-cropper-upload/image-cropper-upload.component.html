@@ -1,0 +1,52 @@
+<div id="image-cropper-uplaod" class="d-flex flex-column align-items-center">
+        
+    <image-cropper
+        [imageBase64]="originalImage"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="ratio"
+        format="png"
+        (imageCroppedBase64)="imageCropped($event)"
+        (imageLoaded)="imageLoadedEvent()"
+        (loadImageFailed)="imageLoadFailed()"
+        [style.display]="cropperReady ? null : 'none'">
+    </image-cropper>
+
+    <div *ngIf="cropperReady" class="my-2">
+        <button type="submit" class="btn btn-link" (click)="save()">
+            <span class="ion-checkmark-round"></span>
+        </button>
+        <button type="button" class="btn btn-link" (click)="cancel()">
+            <span class="ion-close-round"></span>
+        </button>
+    </div>
+
+    <label class="uploader text-center w-100" 
+        [style.padding-top.%]="ratio ? 100 / ratio : 100"
+        ondragover="return false;"
+        [class.loaded]="loaded" 
+        [class.required]="required && !imageSrc"
+        [class.dragging]="dragging"
+        (dragenter)="handleDragEnter()"
+        (dragleave)="handleDragLeave()"
+        (drop)="handleDrop($event)">
+        <div class="content">
+            <img
+            *ngIf="imageSrc || dfaultImgSrc"
+                [src]="imageSrc ? imageSrc : dfaultImgSrc" 
+                width="100%"
+                height="100%"
+                (load)="handleImageLoad()" 
+                [class.loaded]="imageLoaded"/>
+
+            <input type="file" name="file" 
+                accept="image/*"
+                #fileInput
+                (change)="handleInputChange($event)">
+
+            <div *ngIf="!imageSrc && !dfaultImgSrc">
+                <h1 class="text-center">+</h1>
+                <h4 class="text-center">DRAG AND DROP</h4>
+            </div>
+        </div>
+    </label>
+</div>

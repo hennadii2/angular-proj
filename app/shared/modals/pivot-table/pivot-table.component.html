@@ -1,0 +1,22 @@
+<div id="modal-device-info">
+	<div class="modal-header">
+		<h5>{{ title ? title : 'Pivot Table'}}</h5>
+		<button
+			*ngIf="buttons.indexOf(ButtonType.Exit) > -1" 
+			type="button" 
+			class="btn btn-primary ml-2"
+			[class.icon-btn]="is_icon"
+			[ngStyle]="{'border-radius.px': button_corner}"
+			(click)="closeModal()"
+		>
+			<span class="{{ABO_ICONS['s']}}"></span>
+		</button>
+	</div>
+	<div class="modal-body" style="overflow: scroll;">
+		<app-pivot-table
+			[dataSourceEndpoint]="dataSourceEndpoint"
+			[sliceEndpoint]="sliceEndpoint"
+			[hideToolbar]="hideToolbar">
+		</app-pivot-table>
+	</div>
+</div>

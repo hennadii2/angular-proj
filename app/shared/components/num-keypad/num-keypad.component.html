@@ -1,0 +1,46 @@
+<div id="num-keypad" [class.collapse]="collapsible">
+    <div class="d-flex justify-content-end" *ngIf="!isOpen">
+        <button type="button" class="btn icon-btn btn-outline-secondary" [disabled]="!collapsible" (click)="clickKey(NumberInputKeys.ZoomIn)">
+            <i class="ion ion-arrow-expand"></i>
+        </button>
+    </div>
+    <div class="border rounded bg-white p-3" *ngIf="isOpen">
+        <div class="d-flex justify-content-between">
+            <button type="button" class="btn icon-btn btn-success" (click)="clickKey('7')" >7</button>
+            <button type="button" class="btn icon-btn btn-success" (click)="clickKey('8')" >8</button>
+            <button type="button" class="btn icon-btn btn-success" (click)="clickKey('9')">9</button>
+            <button type="button" class="btn icon-btn btn-primary" (click)="clickKey('-')">-</button>
+        </div>
+        
+        <div class="d-flex justify-content-between mt-3">
+            <button type="button" class="btn icon-btn btn-success" (click)="clickKey('4')">4</button>
+            <button type="button" class="btn icon-btn btn-success" (click)="clickKey('5')">5</button> 
+            <button type="button" class="btn icon-btn btn-success" (click)="clickKey('6')">6</button> 
+            <button type="button" class="btn icon-btn btn-primary" (click)="clickKey(NumberInputKeys.BackSpace)">
+                <i class="ion ion-backspace-outline"></i>
+            </button>
+        </div>
+
+        <div class="d-flex justify-content-between mt-3">
+            <div>
+                <button type="button" class="btn icon-btn btn-success" (click)="clickKey('1')">1</button> 
+                <button type="button" class="btn icon-btn btn-primary mt-3" [disabled]="!collapsible" (click)="clickKey(NumberInputKeys.ZoomOut)">
+                    <i class="ion ion-arrow-shrink"></i>
+                </button> 
+            </div>
+            <div>
+                <button type="button" class="btn icon-btn btn-success" (click)="clickKey('2')">2</button>
+                <button type="button" class="btn icon-btn btn-success mt-3" (click)="clickKey('0')">0</button>
+            </div>
+            <div>
+                <button type="button" class="btn icon-btn btn-success" (click)="clickKey('3')">3</button>
+                <button type="button" class="btn icon-btn btn-success mt-3" (click)="clickKey('.')">.</button>
+            </div>
+            <div>
+                <button type="button" class="btn icon-btn btn-primary h-100" (click)="clickKey(NumberInputKeys.Enter)">
+                    <i class="ion ion-arrow-left-c"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div id="data-driven-treegrid" class="pb-1" [class.height-zero]="pagetype!=PageType.TreeGrid">
+  <div class="row my-2">
+    <div [ngClass]="{'col-md-6' :!hidefilter && buttons && buttons.length > 0, 'col-md-12' : !buttons || buttons.length == 0}">
+      <div class="input-group" *ngIf="!hidefilter">
+        <input
+          #searchInput
+          (keyup)="onFilter($event)"
+          (focus)="focusFilter($event)"
+          [(ngModel)]="filterStr"
+          ngbTooltip="{{ 'FILTERTOOLTIP' | translate}}"
+          container="body"
+          class="form-control quick-search mb-1"
+          placeholder="{{ 'FILTERTEXT' | translate}}"/>
+        <span class="input-group-append">
+          <button type="button" class="btn icon-btn btn-primary mb-1" (click)="search()">
+            <span class="abo-linea-basic-10-2"></span>
+          </button> 
+        </span>
+      </div>
+    </div>
+
+    <div class="text-right col-md-6" [class.col-md-12]="hidefilter">
+      <h5 class="data-driven-treegrid__title" *ngIf="isDashboardElement">{{ title }}</h5>
+      <app-data-driven-buttons
+        [buttons]="buttons"
+        [is_icon]="true"
+        [disabled_buttons]="disabled_buttons"
+        (onClick)="clickButtonBar($event)">
+      </app-data-driven-buttons>
+    </div>
+  </div>
+
+  <nb-card nbSpinnerStatus="success" >
+    <jqxTreeGrid
+        #jqxTreeGrid
+        *ngIf="columns"
+        [theme]="'energyblue'"
+        [source]="gridAdapter"
+        [columns]="columns"
+        [width]="getGridWidth()"
+        [height]="getGridRowHeight()"
+        [columnsResize]="true"
+        [sortable]="true"
+        [ready]="gridReady"
+        [showAggregates]="true"
+        [showSubAggregates]="false"
+        [altRows]="true"
+        [checkboxes]="true" 
+        [hierarchicalCheckboxes]="true"
+        (onRowDoubleClick)="onRowDoubleClicked($event)">
+    </jqxTreeGrid>
+  </nb-card>
+</div>

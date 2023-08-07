@@ -1,0 +1,59 @@
+<div id="draw">
+    <div class="mb-2 w-100 d-flex align-items-center">
+
+        <button type="button" class="btn btn-primary icon-btn" [ngStyle]="{'border-radius.px': button_corner}" (click)="clear()">
+            Clear
+        </button>
+
+        <button type="button" class="btn btn-primary icon-btn ml-2" [ngStyle]="{'border-radius.px': button_corner}" (click)="undo()">
+            Undo
+        </button>
+        
+        <button
+            type="button" 
+            class="btn btn-primary icon-btn ml-2"
+            type="text"
+            [value]="color"
+            [style.color]="!color"
+            [style.background]="color"
+            [cpPosition]="'bottom'"
+            [cpPositionOffset]="'50%'"
+            [cpPositionRelativeToArrow]="true"
+            [ngStyle]="{'border-radius.px': button_corner}"
+            readonly
+            (colorPickerChange)="changeColor($event)"
+            [(colorPicker)]="color">
+                Color
+        </button>
+        <div class="input-group ml-2">
+            <ng-select
+                class = "w-100"
+                [searchable]="false"
+                [clearable]="false"
+                [items]="PEN_WIDTHS"
+                [(ngModel)]="penwidth"
+                (change)="changePenWidth($event)"
+                [virtualScroll]="true">
+                    <ng-template ng-label-tmp let-item="item">
+                        <div class="width-item">
+                            <div class="w-100" [ngStyle]="{'border-width.px': item}"></div>
+                        </div>
+                    </ng-template>
+
+                    <ng-template ng-option-tmp let-item="item" let-index="index">
+                        <div class="width-item">
+                            <div class="w-100" [ngStyle]="{'border-width.px': item}"></div>
+                        </div>
+                    </ng-template>
+            </ng-select>
+        </div>
+    </div>
+    <!--  -->
+    <div class="w-100" #draw_container (resized)="onResize()">
+        <signature-pad
+            [(options)]="signaturePadOptions" 
+            (onBeginEvent)="drawSignStart()" 
+            (onEndEvent)="drawSignComplete()">
+        </signature-pad>
+    </div>                
+</div>

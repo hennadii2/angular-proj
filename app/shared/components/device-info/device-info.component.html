@@ -1,0 +1,17 @@
+<div id="device-info">
+    <div>DesktopDevice : {{isDesktop}}</div>
+    <div>Tablet : {{isTablet}}</div>
+    <div>Mobile : {{isMobile}}</div>
+    <div>
+        <pre>{{deviceInfo | json}}</pre>
+    </div>
+
+    <div>
+        The Url of server: {{ip}}
+    </div>
+
+    <div>
+        <p *ngIf="!!gpsPosition">Latitude: {{gpsPosition.coords.latitude}}, Longitude: {{gpsPosition.coords.longitude}}</p>
+        <p *ngIf="!gpsPosition">Geolocation is not supported by this browser.</p>
+    </div>
+</div>

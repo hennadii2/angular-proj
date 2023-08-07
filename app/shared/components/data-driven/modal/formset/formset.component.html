@@ -1,0 +1,39 @@
+<div id="data-driven-modal-formset">
+  <div class="modal-header p-3">
+    <h5 class="modal-title">
+      {{ pagetype != PageType.TabForm ? (title ? title : '' | translate) : "" }}
+    </h5>
+  </div>
+	<div class="modal-body py-0">
+    <app-data-driven-formset
+      *ngIf="_isFormSet()"
+      [title]="title"
+      [id]="id"
+      [items]="items"
+      [itemid]="itemid"
+      [maintype]="maintype"
+      [pagetype]="pagetype"
+      [endpoint]="endpoint"
+      [draggable]="draggable"
+      [rowrefresh]="rowrefresh"
+      [form_data]="form_data"
+      [chart_onclick]="chart_onclick"
+      [buttons]="buttons"
+      [onclick]="onclick"
+      [filterStr]="filterStr"
+      [hidefilter]="hidefilter"
+      [groupable]="groupable"
+      [hidefilterrow]="hidefilterrow"
+      [fieldheight]="fieldheight"
+      [form_class]="'minus-margin-top'"
+      [position]="position"
+      [typeview]="typeview"
+      [isSearchModal]="isSearchModal"
+      [isModal]="true"
+      (onChangeView)="changeView($event)"
+      (onSelect)="select($event)"
+      (onExit)="close($event)">
+    </app-data-driven-formset>
+    <iframe *ngIf="_isIframe()" class="w-100" [src]="endpoint | safe: 'resourceUrl'"></iframe>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div id="data-driven-scheduler" class="pb-1 {{form_class}}">
+    <div class="my-2">
+        <app-data-driven-buttons
+            [buttons]="buttons"
+            [disabled_buttons]="disabled_buttons"
+            (onClick)="clickButtonBar($event)">
+        </app-data-driven-buttons>
+    </div>
+
+    <nb-card class="sheduler-card" nbSpinnerStatus="success">
+        <jqxScheduler 
+            #schedulerReference
+
+            [theme]="'energyblue'"
+
+            [width]="'100%'" 
+            [height]="'75vh'"
+            [editDialog]="false"
+            [source]="dataAdapter" 
+            [showLegend]="true"
+            [appointmentDataFields]="appointmentDataFields" 
+            [resources]="resources" 
+            [views]="views"
+            [view]="setView(typeview)"
+            [ready]="schedulerReady"
+            [renderAppointment]="renderAppointment"
+            [localization]="localization"
+            
+            (onDateChange)="changeDate($event)"
+            (onViewChange)="changeView($event)"
+            (onCellDoubleClick)="CellDoubleClick($event)"
+            (onAppointmentDoubleClick)="AppointmentDoubleClick($event)"
+            (onBindingComplete)="BindingComplete($event)"
+            (onAppointmentChange)="updateAppointment($event)"
+            (onAppointmentAdd)="addAppointment($event)"
+            (onAppointmentDelete)="deleteAppointment($event)">
+        </jqxScheduler>
+
+        <!-- [auto-create]="false" -->
+    </nb-card>
+</div>

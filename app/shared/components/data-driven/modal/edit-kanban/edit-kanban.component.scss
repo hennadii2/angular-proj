@@ -1,0 +1,10 @@
+:host {
+    #data-driven-modal-edit-kanban{
+        .modal-body {
+            margin-top: -50px;
+        }
+        textarea {
+            resize: none;
+        }
+    }
+}

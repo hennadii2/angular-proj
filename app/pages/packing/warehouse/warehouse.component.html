@@ -1,0 +1,216 @@
+<div id="packing-warehouse">
+    <div class="modal-header">
+        <div></div>
+        <div>
+            <h4 class="text-center">{{infor.title}}, Gebruiker: {{user?.naam}} - Terminal: {{logged_user}}</h4>
+            <h5 class="text-center mt-1">{{generateSubTitles()}}</h5>
+        </div>
+        <div>
+            <button
+                type="button" nbButton
+                class="btn btn-primary ml-2"
+                [ngStyle]="{'border-radius.px': button_corner}"
+                (click)="clickAnnuleren()">
+                    ANNULEREN
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="row mt-2">
+            <div class="col-md-9">
+                <nb-card nbSpinnerStatus="success" [nbSpinner]="isLoadingGrid" nbSpinnerSize="xlarge">
+                    <jqxGrid
+                        #jqxGrid
+                        [theme]="'energyblue'"
+                        [source]="gridAdapter"
+                        [columns]="columns"
+                        [rowsheight]="ROW_HEIGHT"
+                        [width]="getGridWidth() "
+                        [height]="getGridHeight()"
+                        [columnsresize]="true"
+                        [sortable]="true"
+                        [filterable]="true"
+                        [showfilterrow]="true"
+                        [autoshowfiltericon]="true"
+                        [ready]="gridReady"
+                        [rendered]="gridRendered"
+                        [altrows]="true"
+                        [editable]="true"
+                        [selectionmode]="GridSelectionMode.SingleCell"
+                        [scrollmode]="'logical'"
+                        [autoloadstate]="true"
+                        
+                        (onCellclick)="onCellDoubleClick($event)"
+                        (onCellbeginedit)="onCellBeginEdit($event)">
+                    </jqxGrid>
+                    
+                    <!--  -->
+                </nb-card>
+            </div>
+            <div class="col-md-3 position-relative">
+                <form class="form row" name="form" [formGroup]="form">
+                    <div class="col-6 col-md-4 d-flex align-items-start mt-2 justify-content-end pt-2">
+                        <label class="form-control-label mb-0 text-right">Box no:</label>
+                    </div>
+                    <div class="form-group col-6 col-md-8 pt-2">
+                        <div class="input-group">
+                            <span class="input-group-prepend">
+                                <button type="button"
+                                    class="btn icon-btn btn-primary" 
+                                    [disabled]="form.controls['box'].value<=MIN_VALUE"
+                                    (click)="decreaseBoxNum()"> 
+                                    <span [class]="ABO_ICONS['c']"></span>
+                                </button> 
+                            </span>
+    
+                            <input
+                                #boxInput
+                                type="number" 
+                                class="form-control" 
+                                [formControlName]="'box'"
+                                (keydown)="onKeydownInputBox($event)"
+                                (input)="inputBoxNum($event)">
+    
+                            <span class="input-group-append">
+                                <button type="button"
+                                    class="btn icon-btn btn-primary"
+                                    [disabled]="form.controls['box'].value>=maxBoxNumber" 
+                                    (click)="increaseBoxNum()">
+                                    <span [class]="ABO_ICONS['d']"></span>
+                                </button> 
+                            </span>
+                        </div>
+                        <show-errors [control]="form.controls['box']"></show-errors>
+                    </div>
+                    <div class="col-6 col-md-4 d-flex align-items-start mt-2 justify-content-end pt-2">
+                        <label class="form-control-label mb-0 text-right">Search:</label>
+                    </div>
+                    <div class="form-group col-6 col-md-8 pt-2">
+                        <div class="input-group">
+                            <ng-select
+                                #searchSelect
+                                class="w-100"
+                                [items]="product_searchs"
+                                [virtualScroll]="true"
+                                [markFirst]="false"
+                                [openOnEnter]="false"
+                                loadingText="Loading..."
+                                (change)="onChangeToSearchSelect($event)"
+                                (keydown)="onKeyDownSearchSelect($event)">
+                            </ng-select>
+                        </div>
+                    </div>
+    
+                    <div class="col-6 col-md-4 d-flex align-items-start mt-2 justify-content-end pt-2">
+                        <label class="form-control-label mb-0 text-right">Product:</label>
+                    </div>
+                    <div class="form-group col-6 col-md-8 pt-2">
+                        <div class="input-group">
+                            <input type="hidden" class="form-control" [formControlName]="'product'">
+                            
+                            <input class="form-control" 
+                                [ngModel]="getProductNumberFromId(form.controls['product'].value)"
+                                [ngModelOptions]="{standalone: true}"
+                                readonly>
+                        </div>
+                        <show-errors [control]="form.controls['product']"></show-errors>
+                    </div>
+    
+                    <div class="col-6 col-md-4 d-flex align-items-start mt-2 justify-content-end pt-2">
+                        <label class="form-control-label mb-0 text-right">Quantity:</label>
+                    </div>
+                    <div class="form-group col-6 col-md-8 pt-2">
+                        <div class="input-group">
+                            <input
+                                type="number" 
+                                class="form-control" 
+                                [formControlName]="'hoev'"
+                                readonly>
+                        </div>
+                        <show-errors [control]="form.controls['hoev']"></show-errors>
+                    </div>
+                </form>
+    
+                <div class="d-flex align-items-start justify-content-start flex-wrap">
+                    <button  type="button" nbButton
+                        class="btn mr-2 mt-2 btn-primary"
+                        [ngStyle]="{'border-radius.px': button_corner}"
+                        (click)="resetBox(form.controls['box'].value)">
+                            Reset doos
+                    </button>
+   
+                    <button  type="button" nbButton
+                        class="btn mr-2 mt-2 btn-primary"
+                        [ngStyle]="{'border-radius.px': button_corner}"
+                        (click)="clickResetAll()">
+                            Reset All
+                    </button>
+
+                    <button  type="button" nbButton
+                        class="btn mr-2 mt-2 btn-primary"
+                        [ngStyle]="{'border-radius.px': button_corner}"
+                        (click)="clickSwitchShowAll()">
+                            {{ isHideCompleted ? 'Toon Alles' : 'Verberg Gescand'}}
+                    </button>
+
+
+                    <button  type="button" nbButton
+                        class="btn mr-2 mt-2 btn-primary"
+                        [ngStyle]="{'border-radius.px': button_corner}"
+                        (click)="clickProductie()">
+                            Productie
+                    </button>
+                    <button  type="button" nbButton
+                        class="btn mr-2 mt-2 btn-primary"
+                        [ngStyle]="{'border-radius.px': button_corner}"
+                        (click)="clickSave()">
+                            OPSLAAN
+                    </button>
+
+                    <button  type="button" nbButton
+                        class="btn mr-2 mt-2 btn-primary"
+                        [ngStyle]="{'border-radius.px': button_corner}" 
+                        [disabled]="!isScannedAllProducts() || isFacting" 
+                        (click)="clickComplete()">
+                            Fact
+                    </button>
+                    <button  type="button" nbButton
+                        class="btn mr-2 mt-2 btn-primary"
+                        [ngStyle]="{'border-radius.px': button_corner}" 
+                        [disabled]="!isScannedAllProducts() || isPrinting" 
+                        (click)="clickPrint()">
+                            Print
+                    </button>
+                    <button  type="button" nbButton
+                        *ngIf = "infor.remark && infor.remark !=''"
+                        class="btn mr-2 mt-2 btn-primary"
+                        [ngStyle]="{'border-radius.px': button_corner}"
+                        (click)="openAlertModal('Remark', infor.remark)">
+                            Opmerking
+                    </button>
+
+                </div>
+
+                <div class="mt-3 d-flex justify-content-end">
+                    <div>
+                        <app-num-keypad>
+                        </app-num-keypad>
+                        <h1 *ngIf="!!error_key" class="text-danger">Error: {{error_key}}</h1>
+                    </div>
+                </div>
+
+            </div>
+    
+            <!-- <div class="col-md-12 mt-2 ">
+                <div class="d-flex align-items-between">
+                    <textarea 
+                        class="form-control"
+                        [rows]="5">
+                        {{infor.products | json}}
+                    </textarea>
+
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>

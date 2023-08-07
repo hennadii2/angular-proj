@@ -1,0 +1,142 @@
+<div class="page-layout blank">
+  <app-tabs>
+    <app-tab [tabTitle]="'Home'">
+      <div *ngIf="dashboardData" class="form__dashboard--wrapper row bk-{{dashboardData.background}} padding-{{dashboardData.padding}}">
+        <div *ngFor="let block of dashboardData.blocks; let id = index" class="col-12 col-md-{{block.width}} bk-{{block.background}} padding-{{dashboardData.padding}}" [attr.data-index]="i">
+          <div *ngFor="let widget of dashboardData.widgets">
+            <div *ngIf="id == widget.block" class="col-12 col-md-{{widget.width}}" style="float:left;">
+              <div class="form__dashboard-component__wrapper bk-{{widget.background}}">
+                <app-data-driven-formset
+                  *ngIf="widget.pagetype =='kanban' || widget.pagetype =='grid' || widget.pagetype =='treegrid'"
+                  [title]="widget.title"
+                  [itemid]="widget.itemid"
+                  [maintype]="widget.pagetype"
+                  [pagetype]="widget.pagetype"
+                  [endpoint]="widget.endpoint"
+                  [draggable]="widget.draggable"
+                  [rowrefresh]="widget.refresh"
+                  [buttons]="widget.buttons"
+                  [hidefilter]="widget.hidefilter"
+                  [groupable]="widget.groupable"
+                  [hidefilterrow]="widget.hidefilterrow"
+                  [fieldheight]="widget.height"
+                  [onclick]="widget.onclick"
+                  [chart_onclick]="widget.chart_onclick"
+                  [position]="widget.position"
+                  [typeview]="widget.typeview"
+                  [isDashboardElement]="true"
+                  (onExit)="closeTab(widget.id)">
+                </app-data-driven-formset>
+
+                <app-data-driven-formset
+                  *ngIf="widget.pagetype =='graph'"
+                  [pagetype]="widget.pagetype"
+                  [itemid]="chart1"
+                  [onclick]="widget.endpoint"
+                  [rowrefresh]="widget.refresh"
+                  [buttons]="widget.buttons"
+                  [isDashboardElement]="true"
+                  [title]="widget.title"
+                  (onExit)="closeTab(widget.id)">
+                </app-data-driven-formset>
+
+                <app-data-driven-form
+                  *ngIf="widget.pagetype=='form'"
+                  [title]="widget.title"
+                  [form_class]="form_class"
+                  [parent_id]="id"
+                  [id]="itemid"
+                  [endpoint]="widget.endpoint"
+                  [buttons]="widget.buttons"
+                  [onclick]="widget.onclick"
+                  [rowrefresh]="widget.refresh"
+                  [default_disabled_buttons]="disabled_buttons"
+                  [isDashboardElement]="true"
+                  (onClickButtonBar)="clickButtonBar($event)"
+                  (onChangeView)="changeView($event)"
+                  (onSelect)="selectItem($event)"
+                  (onCreated)="afterCreate($event)"
+                  (onUpdated)="afterUpdate($event)"
+                  (onDeleted)="afterDelete($event)">
+                </app-data-driven-form>
+                
+                <app-pivot-table
+                  *ngIf="widget.pagetype=='pivot'"
+                  [dataSourceEndpoint]="'/files/detklhi?key=24637&jaar=huidig'"
+                  [sliceEndpoint]="'/report?report=klanthistoriek.json'"
+                  [hideToolbar]="widget.hidetoolbar"
+                  [title]="widget.title"
+                  [isDashboardElement]="true">
+                </app-pivot-table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-tab>
+  </app-tabs>
+
+  <ng-template #formsetTpl let-data="data">
+    <app-data-driven-formset
+      [title]="data.title"
+      [itemid]="data.itemid"
+      [maintype]="data.pagetype"
+      [pagetype]="data.pagetype"
+      [endpoint]="data.endpoint"
+      [draggable]="data.draggable"
+      [rowrefresh]="data.rowrefresh"
+      [buttons]="data.buttons"
+      [hidefilter]="data.hidefilter"
+      [groupable]="data.groupable"
+      [hidefilterrow]="data.hidefilterrow"
+      [fieldheight]="data.fieldheight"
+      [onclick]="data.onclick"
+      [chart_onclick]="data.chart_onclick"
+      [isDashboardElement]="data.isDashboardElement"
+      [position]="data.position"
+      [typeview]="data.typeview"
+      (onExit)="closeTab(data.id)">
+    </app-data-driven-formset>
+  </ng-template>
+
+  <ng-template #deviceinfoTpl let-data="data">
+    <app-device-info>
+    </app-device-info>
+  </ng-template>
+
+  <ng-template #tabWindowTpl let-data="data">
+    <app-web-page
+      class="w-100"
+      [data]="data">
+    </app-web-page>
+  </ng-template>
+
+  <ng-template #pivotTableTpl let-data="data">
+    <app-pivot-table
+      [dataSourceEndpoint]="data.dataSourceEndpoint"
+      [sliceEndpoint]="data.sliceEndpoint"
+      [hideToolbar]="data.hideToolbar">
+    </app-pivot-table>
+  </ng-template>
+  
+  <ng-template #reportGenerateTpl let-data="data">
+    <wbr-pivot #pivot
+      [toolbar]="true"
+      [width]="'100%'"
+      [height]="500"
+      [report]="data">
+      WebDataRocks will appear here
+    </wbr-pivot>
+  </ng-template>
+  
+  <ng-template #inventoryTpl let-data="data">
+    <app-inventory>
+    </app-inventory>
+  </ng-template>
+
+  <ng-template #packingTpl let-data="data">
+    <app-packing 
+      [endpoint]="data.endpoint">
+    </app-packing>
+  </ng-template>
+</div>

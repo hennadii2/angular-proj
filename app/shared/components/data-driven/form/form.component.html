@@ -1,0 +1,547 @@
+<div id="data-driven-form" class="py-1 {{form_class}}">
+  <h5 class="data-driven-form__title" *ngIf="isDashboardElement">{{ title }}</h5>
+  <app-data-driven-buttons
+    [buttons]="buttons"
+    [disabled_buttons]="disabled_buttons"
+    [isRefreshButtonEnabled]="isDashboardElement? true : false"
+    (onClick)="clickButtonBar($event)"
+  >
+  </app-data-driven-buttons>
+
+  <form onReturn onArrow onTab *ngIf="labels && labels.length > 0" class="form row mt-2" autocomplete="off" name="form" [formGroup]="form">
+    <ng-container *ngIf="parent_id!=null && parent_id!=-1">
+      <input type="hidden" readonly [formControlName]="'parent_id'" autocomplete="off">
+    </ng-container>
+    <div *ngFor="let block of blocks; let j = index;" class="col-12 col-md-{{block.width}}">
+      <div class="row">
+        <ng-container *ngFor="let label of labels; let i=index;">
+          <ng-container *ngIf="label.block == j+1">
+            <div *ngIf="label.newline" class="w-100"></div>
+
+            <ng-container
+              *ngIf="label.inputtype==FormItemType.Hidden 
+              || label.inputtype==FormItemType.HiddenText
+              || label.inputtype==FormItemType.HiddenInt
+              || label.inputtype==FormItemType.HiddenFloat">
+              <input type="hidden" readonly [formControlName]="label.fieldname" autocomplete="off">
+            </ng-container>
+
+            <ng-container *ngIf="label.inputtype==FormItemType.Divider">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2 label-divider">
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="label.inputtype==FormItemType.Label">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">
+                  <b>{{ label.display }}</b>
+                </label>
+              </div>
+            </ng-container>
+
+            <ng-container 
+              *ngIf="
+                label.inputtype===FormItemType.Text
+                || label.inputtype===FormItemType.ReadText
+                || label.inputtype===FormItemType.Float
+                || label.inputtype===FormItemType.ReadFloat
+                || label.inputtype===FormItemType.Int
+                || label.inputtype===FormItemType.ReadInt
+                || label.inputtype===FormItemType.Phone
+                || label.inputtype===FormItemType.ReadPhone
+                || label.inputtype===FormItemType.Email
+                || label.inputtype===FormItemType.Search
+                || label.inputtype===FormItemType.SearchEdit
+                || label.inputtype===FormItemType.InputLookup
+                || label.inputtype===FormItemType.Lattitude
+                || label.inputtype===FormItemType.Longitude">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">{{ label.display }}</label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2">
+                <div class="input-group">
+                  <input 
+                    #input
+                    [type]="getInputType(label.inputtype)" 
+                    [ngbTooltip]="label.tooltip"
+                    class="form-control" 
+                    autocomplete="off"
+                    autocorrect="off"
+                    [class.form-control-danger]="
+                    (form.controls[label.fieldname].errors &&
+                    (form.controls[label.fieldname].dirty || form.controls[label.fieldname].touched)) || 
+                    (label.validation && label.server_error && !label.server_error.valid)"
+                    placeholder="{{ label.display }}"
+                    [class.text-right]="isNumberFields(label.inputtype)"
+                    [ngStyle]="getNgStyle(label)"
+                    [formControlName]="label.fieldname"
+                    [pattern]="label.pattern"
+                    [readonly]="isReadFields(label.inputtype)"
+                    [step]="label.inputtype==FormItemType.Float ? 0.01 : 1"
+                    (blur)="onInputBlur(label, $event)"
+                    (focus)="onInputFocus($event)">
+                  <span
+                    class="input-group-append" 
+                    *ngIf="
+                      label.inputtype===FormItemType.Search
+                      || label.inputtype===FormItemType.SearchEdit
+                      || label.inputtype===FormItemType.InputLookup
+                      || label.infobutton
+                      || isReadPhoneFields(label.inputtype)
+                      || isEmailField(label.inputtype)">
+                    <button
+                      type="button" 
+                      *ngIf="isEmailField(label.inputtype)"
+                      class="btn icon-btn btn-primary"
+                      (click)="sendEmail(data[label.fieldname])">
+                      <span [class]="ABO_ICONS['X']"></span>
+                    </button>
+                    <button
+                      type="button" 
+                      *ngIf="isReadPhoneFields(label.inputtype)"
+                      class="btn icon-btn btn-primary"
+                      (click)="onPhoneCall(data[label.fieldname])">
+                      <span [class]="ABO_ICONS['A']"></span>
+                    </button>
+                    <button
+                      type="button" 
+                      *ngIf="
+                        label.inputtype===FormItemType.Search
+                        || label.inputtype===FormItemType.SearchEdit
+                        || label.inputtype===FormItemType.InputLookup"
+                      class="btn icon-btn btn-primary"
+                      (click)="onSearchGrid(form.controls[label.fieldname].value, label)">
+                      <span [class]="ABO_ICONS['j']"></span>
+                    </button>
+                    <button
+                      type="button" 
+                      *ngIf="label.inputtype==FormItemType.SearchEdit"
+                      class="btn icon-btn btn-primary border-left"
+                      (click)="onSearchEdit(label)">
+                      <span [class]="ABO_ICONS['i']"></span>
+                    </button>
+                    <button
+                      type="button" 
+                      *ngIf="label.infobutton"
+                      class="btn icon-btn btn-primary border-left"
+                      (click)="onInfoButton(label)">
+                      <span [class]="label.infobutton['icon'] && label.infobutton['icon'] != '' ? ABO_ICONS[label.infobutton.icon] : ABO_ICONS['j']"></span>
+                    </button>
+                  </span>
+                </div>
+                <show-errors [control]="form.controls[label.fieldname]"></show-errors>
+                <show-server-error
+                  *ngIf="label.validation"
+                  [error]="label.server_error">
+                </show-server-error>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="label.inputtype==FormItemType.Date || label.inputtype==FormItemType.ReadDate">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">{{ label.display }}</label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2">
+                <div class="input-group">
+                  <input
+                    #input
+                    [type]="text" 
+                    [ngbTooltip]="label.tooltip"
+                    class="form-control" 
+                    [class.form-control-danger]="(form.controls[label.fieldname].errors &&
+                    (form.controls[label.fieldname].dirty || form.controls[label.fieldname].touched) ) || 
+                    (label.validation && label.server_error && !label.server_error.valid)" 
+                    placeholder="{{ label.display }}"
+                    [ngStyle]="getNgStyle(label)"
+                    [readonly]="label.inputtype==FormItemType.ReadDate"
+                    [formControlName]="label.fieldname">
+                  <input class="form-control d-none" 
+                      ngbDatepicker #d="ngbDatepicker"  
+                      [ngModelOptions]="{standalone: true}" 
+                      [ngModel]="form.controls[label.fieldname].value"
+                      (dateSelect)="selectDate(label, d)">
+                  <span class="input-group-append">
+                    <button
+                      type="button"
+                      [disabled]="label.inputtype==FormItemType.ReadDate"
+                      class="btn icon-btn btn-primary"
+                      (click)="d.toggle()">
+                      <span [class]="ABO_ICONS['[']"></span>
+                    </button> 
+                  </span>
+                </div>
+                <show-errors [control]="form.controls[label.fieldname]"></show-errors>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="isTimeField(label.inputtype)">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">{{ label.display }}</label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2">
+                <div class="input-group">
+                  <input 
+                    #input
+                    [type]="'time'" 
+                    [ngbTooltip]="label.tooltip"
+                    class="form-control" 
+                    [class.form-control-danger]="(form.controls[label.fieldname].errors &&
+                    (form.controls[label.fieldname].dirty || form.controls[label.fieldname].touched) ) || 
+                    (label.validation && label.server_error && !label.server_error.valid)" 
+                    [ngStyle]="getNgStyle(label)"
+                    placeholder="{{ label.display }}"
+                    [readonly]="label.inputtype==FormItemType.ReadDate"
+                    [formControlName]="label.fieldname">
+                  <input class="d-none" [ngxTimepicker]="timePicker" [disableClick]="true" readonly>   
+                  <span class="input-group-append">
+                    <ngx-material-timepicker-toggle [for]="timePicker">
+                      <button
+                        type="button"
+                        class="btn icon-btn btn-primary">
+                        <span [class]="ABO_ICONS['Y']"></span>
+                      </button> 
+                    </ngx-material-timepicker-toggle>
+                  </span>
+                  <ngx-material-timepicker
+                    #timePicker
+                    [ESC]="true"
+                    [cancelBtnTmpl]="cancelBtn"
+                    [confirmBtnTmpl]="confirmBtn"
+                    [defaultTime]="form.controls[label.fieldname].value"
+                    (timeSet)="changeTime(label, $event)">
+                  </ngx-material-timepicker>
+                  <ng-template #cancelBtn>
+                    <button
+                      type="button" 
+                      class="btn btn-primary icon-btn ml-2"
+                      [ngStyle]="{'border-radius.px': button_corner}">
+                      <span class="{{ABO_ICONS['b']}}"></span>
+                    </button>
+                  </ng-template>
+                  <ng-template #confirmBtn>
+                    <button
+                      type="button" 
+                      class="btn btn-success icon-btn ml-2"
+                      [ngStyle]="{'border-radius.px': button_corner}">
+                      <span class="{{ABO_ICONS['a']}}"></span>
+                    </button>
+                  </ng-template>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="label.inputtype==FormItemType.Signature">
+              <input type="hidden" [formControlName]="label.fieldname">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">{{ label.display }}</label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2" >
+                <app-signature
+                  [height]="label.fieldheight"
+                  [signdata]="form.controls[label.fieldname].value"
+                  [refresh]="label.refresh"
+                  (onChangeData)="changeDrawData(label, $event)">
+                </app-signature>
+              </div>
+            </ng-container>
+        
+            <ng-container *ngIf="label.inputtype==FormItemType.ReadSignature">
+              <input type="hidden" [formControlName]="label.fieldname">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">{{ label.display }}</label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2" >
+                <app-signature
+                  [height]="label.fieldheight"
+                  [signdata]="form.controls[label.fieldname].value"
+                  [refresh]="label.refresh"
+                  [readOnly]="true"
+                  (onChangeData)="changeDrawData(label, $event)">
+                </app-signature>
+              </div>
+            </ng-container>
+        
+            <ng-container *ngIf="label.inputtype==FormItemType.Draw">
+              <input type="hidden" [formControlName]="label.fieldname">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">{{ label.display }}</label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2" >
+                <app-draw
+                  [height]="label.fieldheight"
+                  [signdata]="form.controls[label.fieldname].value"
+                  [refresh]="label.refresh"
+                  (onChangeData)="changeDrawData(label, $event)">
+                </app-draw>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="label.inputtype==FormItemType.Image">
+              <input type="hidden" [formControlName]="label.fieldname">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">{{ label.display }}</label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2" >
+                <app-image-upload
+                  [height]="label.fieldheight"
+                  [imageSrc]="form.controls[label.fieldname].value"
+                  (onChange)="changeImage(label, $event)">
+                </app-image-upload>
+              </div>
+            </ng-container>
+        
+            <ng-container *ngIf="label.inputtype==FormItemType.ReadImage">
+              <input type="hidden" [formControlName]="label.fieldname">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">{{ label.display }}</label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2" >
+                <app-image-upload
+                    [height]="label.fieldheight"
+                    [imageSrc]="form.controls[label.fieldname].value"
+                    [readOnly]="true"
+                    (onChange)="changeImage(label, $event)">
+                </app-image-upload>
+              </div>
+            </ng-container>
+        
+            <ng-container *ngIf="label.inputtype==FormItemType.ImageCropper">
+              <input type="hidden" [formControlName]="label.fieldname">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">{{ label.display }}</label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2" >
+                <app-image-cropper-upload
+                  [imageSrc]="form.controls[label.fieldname].value"
+                  [width]="label.fieldwidth"
+                  [height]="label.fieldheight"
+                  (onChange)="changeImage(label, $event)">
+                </app-image-cropper-upload>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="label.inputtype==FormItemType.Document">
+              <input type="hidden" [formControlName]="label.fieldname">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">{{ label.display }}</label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2" >
+                <app-file-upload
+                  [file]="form.controls[label.fieldname].value"
+                  [progress]="label.progress"
+                  [height]="label.fieldheight"
+                  (onChange)="changeImage(label, $event)">
+                </app-file-upload>
+              </div>
+            </ng-container>
+      
+            <ng-container *ngIf="label.inputtype==FormItemType.MultiLine">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">{{ label.display }}</label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2" >
+                <textarea
+                  #input
+                  class="form-control"
+                  [rows]="label.fieldheight ? label.fieldheight : 5"
+                  [ngbTooltip]="label.tooltip"
+                  [class.form-control-danger]="(form.controls[label.fieldname].errors &&
+                  (form.controls[label.fieldname].dirty || form.controls[label.fieldname].touched) ) || 
+                  (label.validation && label.server_error && !label.server_error.valid)" 
+                  [ngStyle]="getNgStyle(label)"
+                  placeholder="{{ label.display }}" 
+                  [maxlength]="label.length > 0 ? label.length : null"
+                  [formControlName]="label.fieldname">
+                </textarea>
+                <show-errors [control]="form.controls[label.fieldname]"></show-errors>
+                <show-server-error
+                  *ngIf="label.validation"
+                  [error]="label.server_error">
+                </show-server-error>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="label.inputtype==FormItemType.DropDown">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">{{ label.display }}</label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2" >
+                <ng-select 
+                  class="w-100"
+                  loadingText="Loading..."
+                  [ngStyle]="getNgStyle(label)"
+                  [ngbTooltip]="label.tooltip"
+                  [items]="label.items"
+                  [bindValue]="label.data.fieldname"
+                  [virtualScroll]="true"
+                  [formControlName]="label.fieldname"
+                  [typeahead]="label.search"
+                  [openOnEnter]="false"
+                  (change)="onChangeItem($event, label)"
+                  (open)="onOpenDropDown($event, label)">
+                  <ng-template ng-label-tmp let-item="item">
+                    <span class="pl-2">
+                      {{ item[label.data.fieldname] && item[label.data.fieldname] != "" ? item[label.data.fieldname] : form.controls[label.fieldname].value  }}
+                    </span>
+                  </ng-template>
+
+                  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                    <div class="row">
+                      <ng-container *ngFor="let key of objectKeys(item)">
+                        <span *ngIf="key!='id'" class="col-md-{{12 / (objectKeys(item).length - 1)}}">
+                          {{ item[key] }}
+                        </span>
+                      </ng-container>
+                    </div>
+                  </ng-template>
+
+                  <ng-template ng-footer-tmp>
+                    Selected count: {{label.items.length}}
+                  </ng-template>
+                </ng-select>
+                <show-errors [control]="form.controls[label.fieldname]"></show-errors>
+                <show-server-error
+                  *ngIf="label.validation"
+                  [error]="label.server_error">
+                </show-server-error>
+              </div>
+            </ng-container>
+      
+            <ng-container *ngIf="label.inputtype==FormItemType.ComboBox">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">{{ label.display }}</label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2">
+                <ng-select 
+                  class="w-100"
+                  [ngStyle]="getNgStyle(label)"
+                  [ngbTooltip]="label.tooltip"
+                  [items]="label.options"
+                  [virtualScroll]="true"
+                  [openOnEnter]="false"
+                  loadingText="Loading..."
+                  bindLabel="option"
+                  bindValue="value"
+                  [formControlName]="label.fieldname">
+                </ng-select>
+                <show-errors [control]="form.controls[label.fieldname]"></show-errors>
+                <show-server-error
+                  *ngIf="label.validation"
+                  [error]="label.server_error">
+                </show-server-error>
+              </div>
+            </ng-container>
+      
+            <ng-container *ngIf="label.inputtype==FormItemType.Grid">
+              <div class="col-{{label.labelwidth}} col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip">{{ label.display }}</label>
+              </div>
+              <div class="form-group col-{{label.labelwidth}} col-md-{{label.fieldwidth}} pt-2">
+                <app-data-driven-grid
+                  [id]="id"
+                  [endpoint]="label.endpoint"
+                  [buttons]="label.buttons"
+                  [onclick]="label.onclick"
+                  [onok]="label.onok"
+                  [pagetype]="PageType.Grid"
+                  [hidefilter]="label.hidefilter"
+                  [height]="label.fieldheight"
+                  [row_draggable]="label.draggable"
+                  [groupable]="label.groupable"
+                  [data]="data"
+                  [hidefilterrow]="label.hidefilterrow"
+                  (onBeforeClickButtonBar)="onGridBeforeClickButtonBar(label, $event)"
+                  (onChangedGridData)="onGridDataChanged()"
+                  (onDropRowToTarget)="onGridRowDropToTarget($event)">
+                </app-data-driven-grid>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="label.inputtype==FormItemType.Kanban">
+              <div class="col-{{label.labelwidth}} col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+              </div>
+              <div class="form-group col-{{label.labelwidth}} col-md-{{label.fieldwidth}} pt-2">
+                <app-data-driven-kanban
+                  [endpoint]="label.endpoint"
+                  [itemid]="id"
+                  [buttons]="label.buttons"
+                  [default_disabled_buttons]="label.disabled_buttons"
+                  [onclick]="label.onclick">
+                </app-data-driven-kanban>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="label.inputtype==FormItemType.Scheduler">
+              <div class="col-{{label.labelwidth}} col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+              </div>
+              <div class="form-group col-{{label.labelwidth}} col-md-{{label.fieldwidth}} pt-2">
+                <app-data-driven-scheduler
+                  [endpoint]="label.endpoint"
+                  [buttons]="label.buttons"
+                  [onclick]="label.onclick"
+                  [typeview]="label.typeview">
+                </app-data-driven-scheduler> 
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="label.inputtype==FormItemType.Timeline">
+              <div class="col-{{label.labelwidth}} col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+              </div>
+              <div class="form-group col-{{label.labelwidth}} col-md-{{label.fieldwidth}} pt-2">
+                <app-data-driven-timeline
+                  [endpoint]="label.endpoint"
+                  [buttons]="label.buttons"
+                  [default_disabled_buttons]="label.disabled_buttons"
+                  [onclick]="label.onclick"
+                  [typeview]="label.typeview">
+                </app-data-driven-timeline>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="label.inputtype==FormItemType.CheckBox">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start mt-2 justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right"></label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2 d-flex align-items-start mt-2 justify-content-start">
+                <nb-checkbox [formControlName]="label.fieldname" [ngbTooltip]="label.tooltip">{{ label.display }}</nb-checkbox>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="label.inputtype==FormItemType.Button">
+              <div class="col-3 col-md-{{label.labelwidth}} d-flex align-items-start justify-content-end pt-2">
+                <label class="form-control-label mb-0 text-right" [ngbTooltip]="label.tooltip"></label>
+              </div>
+              <div class="form-group col-9 col-md-{{label.fieldwidth}} pt-2" >
+                <button
+                  nbButton
+                  type="button"
+                  class="btn w-100 form-btn"
+                  [ngClass]="{'btn-primary': label.color == ColorType.Primary || !label.color,
+                              'btn-success': label.color == ColorType.Success,
+                              'btn-warning': label.color == ColorType.Warning,
+                              'btn-info'   : label.color == ColorType.Info,
+                              'btn-danger' : label.color == ColorType.Danger,
+                              'btn-drop-target': !!label.ondrop,
+                              'btn-outline': label.outline}"
+                  [ngStyle]="{'border-radius.px': button_corner, 'height.px': label.fieldheight ? label.fieldheight * 31 : 31 }"
+                  [ngStyle]="getNgStyle(label)"
+                  [ngbTooltip]="label.tooltip"
+                  [attr.data-label]="getLabelDataString(label)"
+                  (click)="clickLabelButton(label, id)">
+                  <span *ngIf="label.icon" class="{{ABO_ICONS[label.icon]}} icon-span"></span>
+                  <span *ngIf="!label.icon"></span>
+                  <span class="text-span">{{label.display}}</span>
+                  <span></span>
+                </button>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </form>
+</div>

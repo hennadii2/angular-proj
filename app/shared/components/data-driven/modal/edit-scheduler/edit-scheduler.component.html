@@ -1,0 +1,21 @@
+<div id="data-driven-modal-edit-scheduler">
+    <div class="modal-header p-3">
+        <h5 class="modal-title">
+            {{ is_add ? 'Add' : 'Edit'}} Item
+        </h5>
+    </div>
+
+    <div class="modal-body py-0">
+        <app-data-driven-form
+            #editForm
+            [buttons]="buttons"
+            [labels]="converted_labels"
+            [blocks]="blocks"
+            [data]="data"
+            (onCreated)="afterCreate($event)"
+            (onUpdated)="afterUpdate($event)"
+            (onDeleted)="afterDelete($event)"
+            (onClickButtonBar)="clickButtonBar($event)">
+        </app-data-driven-form>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div id="modal-serial">
+	<div class="modal-header">
+		<h4 class="modal-title">{{getTitle()}}</h4>
+	</div>
+	<div class="modal-body">
+		<input type="text"  class="hidden-input"/>
+		<div class="w-100">
+			<tag-input
+				#serialsInput
+				[placeholder]="'Serial number'"
+				[secondaryPlaceholder]="'Enter a New Serial'"
+				[theme]="'bootstrap'"
+				[(ngModel)]="serials" 
+				[maxItems]="quantity"
+				[allowDupes]="true"
+				(onAdd)="onItemAdded($event)">
+			</tag-input>
+		</div>
+
+		<div class="mt-3 d-flex justify-content-center">
+			<app-num-keypad>
+			</app-num-keypad>
+		</div>
+
+	</div>
+
+	<div class="modal-footer py-1">
+		<button 
+			type="button" 
+			class="btn btn-primary" 
+			[ngStyle]="{'border-radius.px': button_corner}" 
+			[disabled]="serials.length<quantity"
+			(click)="check()">
+			<span class="abo-uniE007"></span>
+		</button>
+	</div>
+</div>

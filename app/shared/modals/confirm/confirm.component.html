@@ -1,0 +1,21 @@
+<div id="modal-confirm">
+	<div class="modal-header">
+		<h5 class="modal-title">{{title | translate}}</h5>
+		<button class="close" aria-label="Close" (click)="closeModal()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<span class="mb-0">{{message | translate}}</span>
+	</div>
+	<div class="modal-footer py-1">
+		<button type="button" class="btn btn-primary" [ngStyle]="{'border-radius.px': button_corner}" (click)="yes()">
+			<!-- {{ btn_yes | translate}} -->
+			<span class="abo-uniE007"></span>
+		</button>
+		<button type="button" class="btn btn-danger" [ngStyle]="{'border-radius.px': button_corner}" (click)="closeModal()">
+			<!-- {{ btn_no | translate}} -->
+			<span class="abo-uniE00E"></span>
+		</button>
+	</div>
+</div>

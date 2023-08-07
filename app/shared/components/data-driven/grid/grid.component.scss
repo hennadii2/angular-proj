@@ -1,0 +1,15 @@
+#data-driven-grid{
+  nb-card {
+    width: 100%;
+    overflow: auto;
+  }
+}
+
+.height-zero {
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  jqxgrid {
+    height: 0 !important;
+  }
+}

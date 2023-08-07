@@ -1,0 +1,132 @@
+ul:not(.browser-default) {
+    padding-left: 0;
+    list-style-type: none;
+}
+.tabs-wrapper {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+
+    &.tabs-nav-control-enabled {
+        .tabs-nav {
+            display: flex;
+        }
+    }
+
+    .tab-ink-bar {
+        background-color: #3c4252;
+        position: absolute;
+        bottom: 0;
+        height: 2px;
+        transition: .5s cubic-bezier(.35,0,.25,1);
+        z-index: 2;
+    }
+
+    .tabs-nav {
+        display: none;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        min-width: 32px;
+        cursor: pointer;
+        z-index: 2;
+        border: 1px solid rgba(197, 198, 203, 0.3);    
+    }
+
+    .tabs-pagination-disabled {
+        box-shadow: none;
+        cursor: default;
+    }
+    
+    .tabs-viewer {
+        display: flex;
+        flex-grow: 1;
+        overflow: hidden;
+        z-index: 1;
+    }
+}
+.tabs {
+    position: relative;
+    height: 48px;
+    width: 100%;
+    background-color: #fff;
+    margin: 0 auto;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(197, 198, 203, 0.3);
+    font-size: 0px;
+    transition: transform .5s cubic-bezier(.35,0,.25,1);
+    
+    .tabs-nav {
+        position: absolute;
+        background-color: #fff;
+        padding: 12px 5px;
+        display: inline-block;
+        border: 1px solid rgba(197, 198, 203, 0.3);
+    }
+
+    .tabs-nav-prev {
+        top: 0px;
+        left: 0px;
+    }
+
+    .tabs-nav-next {
+        top: 0px;
+        right: 0px;
+    }
+
+    .tab {
+        display: inline-block;
+        text-align: center;
+        line-height: 48px;
+        height: 48px;
+        padding: 0;
+        margin: 0;
+        margin-right: 3px;
+        font-weight: 500;
+        border: 1px solid rgba(197, 198, 203, 0.3);
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        text-transform: uppercase;
+        background-color: white;
+        
+        &:focus,
+        &.active {
+            background-color: rgba(197, 198, 203, 0.3);
+        }
+        
+        &.active a {
+            color: rgba(0, 0, 0, 0.87);
+        }
+
+        a {
+            color: rgba(0, 0, 0, 0.54);
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding: 0 27px;
+            font-size: 14px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            -webkit-transition: color .28s ease;
+            transition: color .28s ease;
+            cursor: pointer;
+            position: relative;
+            
+            &:hover {
+                text-decoration: none !important;
+
+                mat-icon {
+                    display: block;
+                }
+            }
+
+            mat-icon {
+                position: absolute;
+                top: 1px;
+                right: 1px;
+                display: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+<div id="modal-alert">
+	<div class="modal-header">
+		<h5 class="modal-title">{{title}}</h5>
+		<!-- <button class="close" aria-label="Close" (click)="closeModal()">
+			<span aria-hidden="true">&times;</span>
+		</button> -->
+	</div>
+	<div class="modal-body">
+		<div class="mb-0" [innerHTML]="message"></div>
+	</div>
+	<div class="modal-footer py-1">
+		<button type="button" 
+			class="btn btn-primary" 
+			[style.border-radius.px]="button_corner ? button_corner : 0" 
+			(click)="closeModal()">
+			<!-- {{ btn_no | translate}} -->
+			<span class="abo-uniE00E"></span>
+		</button>
+	</div>
+</div>

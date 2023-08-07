@@ -1,0 +1,24 @@
+<div id="data-driven-kanban" class="pb-1 {{form_class}}">
+  <div class="my-2">
+    <h5 class="data-driven-kanban__title" *ngIf="isDashboardElement">{{ title }}</h5>
+    <app-data-driven-buttons
+      [buttons]="buttons"
+      [disabled_buttons]="disabled_buttons"
+      [isRefreshButtonEnabled]="isDashboardElement? true : false"
+      (onClick)="clickButtonBar($event)">
+    </app-data-driven-buttons>
+  </div>
+
+  <nb-card class="kanban-card" nbSpinnerStatus="success">
+    <jqxKanban 
+      #jqxKanban
+      [auto-create]='false'
+      [theme]="'energyblue'"
+      [width]="getWidth()"
+      [height]="'75vh'"
+      (onItemAttrClicked)="onItemAttrClicked($event)" 
+      (onItemMoved)="onItemMoved($event)"
+      (onColumnAttrClicked)="onColumnAttrClicked($event)">
+    </jqxKanban>
+  </nb-card>
+</div>

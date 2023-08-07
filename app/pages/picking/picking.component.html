@@ -1,0 +1,10 @@
+<div id="picking">
+    <app-picking-search
+        *ngIf="pickingView==PickingView.Search"
+        [title]="title"
+        [endpoint]="endpoint"
+        [onclick]="onclick"
+        (onProductsFound)="productsFound($event)"
+        (onClose)="close()">
+    </app-picking-search>
+</div>

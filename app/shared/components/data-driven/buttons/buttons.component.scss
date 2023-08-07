@@ -1,0 +1,13 @@
+:host {
+    #data-driven-buttons {
+        .dropdown-menu {
+            color: #212529;
+            background-color: #fff;
+            border: 1px solid rgba(0,0,0,.15);
+            left: -50% !important;
+        }
+        .dropdown-toggle::after {
+            right: 0.25rem;
+        }
+    }
+}

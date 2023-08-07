@@ -1,0 +1,23 @@
+:host{
+    #login{
+        .login-left-btn {
+            background: #006fe8;
+            color: white
+        }
+        .login-left-btn:hover {
+            color: #006fe8;
+            border-color: currentColor;
+            background-color: white;
+        }
+
+        .login-left {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+    }
+
+    // @media (max-width: 767px) {
+    // }
+}

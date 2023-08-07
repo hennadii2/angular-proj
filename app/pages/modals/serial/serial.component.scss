@@ -1,0 +1,8 @@
+input {
+    font-size: 18px !important;
+    &.hidden-input {
+        width: 0;
+        height: 0;
+        border: none;
+    }
+}
